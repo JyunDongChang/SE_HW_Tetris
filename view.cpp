@@ -7,38 +7,38 @@ void view::paint()
 }
 void view::input()
 {
-	//不断刷新抓input(qt抓键盘的event看最下面注解掉的)
-	//抓到丢给controller
+	//ぃ耞穝ъinput(qtъ龄絃event程爹秆奔)
+	//ъメ倒controller
 	int direct=0;
-	if (direct == right)//根据解读出来的下指令
+	if (direct == right)//沮秆弄ㄓ
 	{
-		mymodel->tetris_move(right);//左右位移
-		//mymodel->tetris_rotate(right);//顺时钟旋转
-		//mymodel->tetris_fall();//直接落下
+		mymodel->tetris_move(right);//オ簿
+		//mymodel->tetris_rotate(right);//抖牧臂锣
+		//mymodel->tetris_fall();//钡辅
 	}
-	//model.h有定义方向，增加可读性请用这define去写，例子如上
+	//model.hΤ﹚竡よ糤弄┦叫ノ硂define糶ㄒ
 	//#define right 0
 	//#define left 1
 	//#define down 2
 
 	/*
-	// 当然要include qt那些有的没的喔
-	// 键盘按下事件
+	// 讽礛璶include qtêㄇΤ⊿Τ翅
+	// 龄絃ㄆン
 
 	void Widget::keyPressEvent(QKeyEvent *event)
 	{
-	// 是否按下Ctrl键      特殊按键
+	// 琌Ctrl龄 疭龄
 	if (event->modifiers() == Qt::ControlModifier) {
-	// 是否按下M键    普通按键  类似
+	// 琌M龄 炊硄龄 摸
 	if (event->key() == Qt::Key_M)
-	···
+	...
 	}
-	else QWidget::keyPressEvent(event);   //保存默认事件
-	//如果是处理两个普通按键，得避免自动重复，释放中也要处理
+	else QWidget::keyPressEvent(event);   //玂纐粄ㄆン
+	// 狦琌矪瞶ㄢ炊硄龄眔磷笆狡睦い璶矪瞶
 	if (event->key() == Qt::Key_Up) {
-	// 按键重复时不做处理
+	// ン狡ぃ暗矪瞶
 	if (event->isAutoRepeat()) return;
-	// 标记向上方向键已经按下
+	// 夹癘よ龄竒
 	keyUp = true;
 	}
 	else if (event->key() == Qt::Key_Left) {
@@ -49,13 +49,13 @@ void view::input()
 }
 void view::gameover()
 {
-	//在正中间画个"Game Over"的text
-	//当然愿意去弄贴图是最好的
+	//タい丁礶"Game Over"text
+	//讽礛腀種禟瓜琌程
 }
 /*void view::repaint()
 {
-	//拿资料然后重画
-	//可能和init类似？
+	//戈礛礶
+	//㎝init摸
 }*/
 
 void view_1::paint()
@@ -64,8 +64,8 @@ void view_1::paint()
 	mymodel->getnextTetris();
 	mymodel->getscore();
 	mymodel->gettetris();
-	//依据model的资料画出来游戏画面
-	//可以考虑在view先写好PaintScore(座标) PaintNextBlock(座标)之类的
-	//然后这边就传入不同的参数就可以变更了
-	//当然我还没看qt，不清楚这现实不现实
+	//ㄌ沮Model戈礶ㄓ笴栏礶
+	//σ納view糶PaintScore(畒夹) PaintNextBlock(畒夹)ぇ摸
+	//礛硂娩碞肚ぃ把计碞跑
+	//讽礛и临⊿qtぃ睲贰硂瞷龟ぃ瞷龟
 }

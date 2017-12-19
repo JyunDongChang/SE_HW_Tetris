@@ -7,10 +7,10 @@ void model::setgame()
 	tetris = new int*[column];
 	for (int i = 0;i < column;i++)
 		tetris[i] = new int[row];
-	//初始化游戏设定
-	//EX:设定初始掉落速度，开始mainloop之类的
+	//﹍て笴栏砞﹚
+	//EX:砞﹚﹍奔辅硉秨﹍mainloopぇ摸
 
-	//设定完后就让view把游戏画面画出来
+	//砞﹚Ч碞琵viewр笴栏礶礶ㄓ
 	myview->paint();
 }
 
@@ -18,56 +18,56 @@ void model::tetris_move(int direction)
 {
 	myblock;
 	tetris;
-	//根据指令去更动next的pos
-	//注意tetris中原本就有东西的地方
-	//若已经无法再下坠则把nextblock给myblock;
+	//沮笆nextpos
+	//猔種tetrisいセ碞Τ狥﹁よ
+	//璝竒礚猭糦玥рnextblock倒myblock
 	bool can_fall=false;
 	if (can_fall)
 	{
 		myblock = nextblock;
-		//random一个新block给nextblock
-		//pos记得设定
+		//random穝block倒nextblock
+		//pos癘眔砞﹚
 	}
-	//做完后
+	//暗Ч
 	checkline();
 }
 
 void model::tetris_rotate()
 {
-	//同move
+	//move
 }
 
 void model::tetris_fall()
 {
-	//同move
+	//move
 }
 
 void model::mainloop()
 {
-	//每秒执行，调降myblock
-	//QObject类提供定时期的功能。与定时器相关的函式有：startTimer()、timeEvent()、killTimer()
-	//做完后一样
+	//–磅︽秸myblock
+	//QObject摸矗ㄑ戳籔﹚闽ㄧボΤ:startTimer()timeEvent()killTimer()
+	//暗Ч妓
 	checkline();
-	//然后再去确认
+	//礛絋粄
 	checkfloar();
 }
 
 void model::checkline()
 {
-	//检查有没有东西能消，有就加分
+	//浪琩Τ⊿Τ狥﹁Τ碞だ
 	score++;
-	//检查完就重新画
+	//浪琩Ч碞穝礶
 	myview->paint();
 }
 
 void model::checkfloar()
 {
-	//检查tetris[]是不是撞上天花板了
+	//浪琩tetris[]琌ぃ琌疾ぱ狾
 	if (true)
 	{
-		//关掉timer
+		//闽奔timer
 		//endgame
-		//该stop要stop
-		//tetris记得delete
+		//赣stop璶stop
+		//tetris癘眔delete
 	}
 }

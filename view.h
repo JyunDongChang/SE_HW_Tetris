@@ -16,7 +16,7 @@ protected:
 	model* mymodel;
 	controller* mycontroller;
 };
-//实做每个人的view去
+//龟瞷–view
 class view_1:public view
 {
 public:

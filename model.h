@@ -11,26 +11,26 @@ class view;
 #define down 2
 struct block
 {
-	int pos;//现在这个block对应到整个画面的哪里，以左上为基准去算座标
+	int pos;//瞷硂block癸莱俱礶畒夹オ膀非璸衡
 	int cell[9];
 };
 //  ____ ____ ____
 // |pos | 1  | 2  |
-//  －－ －－ －－
+//  ⌒⌒ ⌒⌒ ⌒⌒
 // | 3  | 4  | 5  |
-//  －－ －－ －－
+//  ⌒⌒ ⌒⌒ ⌒⌒
 // | 6  | 7  | 8  |
-//  －－ －－ －－
-// 十字的话这样
+//  ⌒⌒ ⌒⌒ ⌒⌒
+// 杠硂妓
 //  ____ ____ ____
 // |    |true|    |
-//  －－ －－ －－
+//  ⌒⌒ ⌒⌒ ⌒⌒
 // |true|true|true|
-//  －－ －－ －－
+//  ⌒⌒ ⌒⌒ ⌒⌒
 // |    |true|    |
-//  －－ －－ －－
-// 以后可以改放其他数字，来区分颜色
-// 现在先用bool区分有没有就好
+//  ⌒⌒ ⌒⌒ ⌒⌒
+// эㄤ计ㄓ跋だ肅︹
+// 瞷ノbool跋だΤ⊿Τ碞
 class model
 {
 public:
@@ -53,10 +53,10 @@ private:
 	void mainloop();
 	void checkline();
 	void checkfloar();
-	//每一个横排有10个
-	//总共有20个横排高
+	//–绢逼Τ10
+	//羆Τ20绢逼蔼
 	int** tetris;
 	int score = 0;
-	block myblock;//现在拿著的block
-	block nextblock;//下一个
+	block myblock;//瞷帝block
+	block nextblock;//
 };
