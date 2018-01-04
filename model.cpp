@@ -4,58 +4,186 @@
 
 void model::setgame()
 {
+	//初始化參數
+	qsrand(QDateTime::currentDateTime().toTime_t());
+	level = score = 0;
+	fallspeed = 1500;
+	inTurnChangeTime = false;
+
 	tetris = new int*[column];
-	for (int i = 0;i < column;i++)
+	for (int i = 0; i < column; i++)
 		tetris[i] = new int[row];
 	//初始化遊戲設定
 	//EX:設定初始掉落速度，開始mainloop之類的
 
+	for (int i = 0; i < column; i++)
+		for (int j = 0; j < row; j++)
+			tetris[i][j] = 0;
+
+	//設置block
+	myblock = createnewpeace();
+	paintintetris();
+	nextblock = createnewpeace();
+
 	//設定完後就讓view把遊戲畫面畫出來
 	myview->paint();
+	//啟動timer
+	timer = new QTimer;
+	QObject::connect(this->timer, SIGNAL(timeout()), this, SLOT(mainloop()));
+	timer->start(fallSpeed);
 }
 
 void model::tetris_move(int direction)
 {
-	myblock;
-	tetris;
-	//根據指令去更動next的pos
-	//注意tetris中原本就有東西的地方
-	//若已經無法再下墜則把nextblock給myblock
-	bool can_fall=false;
-	if (can_fall)
-	{
-		myblock = nextblock;
-		//random一個新block給nextblock
-		//pos記得設定
+	if (!inTurnChangeTime) {
+		block temp = copyablock(myblock);
+
+		switch (direction)
+		{
+		case right_move: temp.cell[0]++; break;
+		case left_move: temp.cell[0]--; break;
+		default:
+			break;
+		}
+
+		if (checkintetris(temp))
+		{
+			myblock = copyablock(temp);
+		}
+		//根據指令去更動next的pos
+		//注意tetris中原本就有東西的地方
+		//若已經無法再下墜則把nextblock給myblock  //須再討論
+
+		//做完後
+		myview->paint();
 	}
-	//做完後
-	checkline();
 }
 
-void model::tetris_rotate()
+void model::tetris_rotate(int direction)
 {
-	//同move
+	if (!inTurnChangeTime) {
+		int tempNum;
+		block temp;
+
+		if (direction == right_rotate)
+		{
+			myBlockRotate++;
+			if (myBlockRotate > 3)
+				myBlockRotate == 0;
+			temp = copyrotateblock();
+		}
+		else if (direction == left_rotate)
+		{
+			myBlockRotate--;
+			if (myBlockRotate < 0)
+				myBlockRotate == 3;
+
+		}
+
+		if (checkintetris(temp))
+		{
+			myblock = copyablock(temp);
+		}
+		//根據指令去更動next的pos
+		//注意tetris中原本就有東西的地方
+		//若已經無法再下墜則把nextblock給myblock  //須再討論
+
+		//做完後
+		myview->paint();
+	}
 }
 
 void model::tetris_fall()
 {
+	block temp;
+	if (!inTurnChangeTime) {
+		inTurnChangeTime = true;
+		timer->stop();
+		while (true)
+		{
+			temp = copyablock(myblock);
+			temp.cell[1]++;
+			if (checkintetris(temp))
+			{
+				myblock = copyablock(temp);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		paintintetris();
+		checkline();
+		myblock = copyablock(nextblock);
+		nextblock = createnewpeace();
+		checkfloar();
+
+		myview->paint();
+		timer->start();
+		inTurnChangeTime = false;
+	}
 	//同move
 }
 
 void model::mainloop()
 {
+	block temp;
+	if (!inTurnChangeTime) {
+
+		temp = copyablock(myblock);
+		temp.cell[1]++;
+		if (checkintetris(temp))
+		{
+			myblock = copyablock(temp);
+		}
+		else
+		{
+			inTurnChangeTime = true;
+			paintintetris();
+			checkline();
+			myblock = copyablock(nextblock);
+			nextblock = createnewpeace();
+			checkfloar();
+		}
+
+		myview->paint();
+		inTurnChangeTime = false;
+	}
 	//每秒執行，調降myblock
 	//QObject類提供時期的功能。與定時相關的函示有:startTimer()、timeEvent()、killTimer()
 	//做完後一樣
-	checkline();
-	//然後再去確認
-	checkfloar();
-}
 
+	//然後再去確認
+
+
+}
+//未完成
 void model::checkline()
 {
+	bool checkReg;
+	bool isFull[column] = { false };
+	for (int i = 0; i < column; i++) {
+		checkReg = true;
+		for (int j = 0; j < row; j++) {
+			if (tetris[i][j] == 0)
+			{
+				checkReg = false;
+				break;
+			}
+		}
+		if (checkReg)
+		{
+			isFull[i] = true;
+			score++;
+			level++;
+		}
+	}
 	//檢查有沒有東西能消，有就加分
 	score++;
+	//更改speed用
+	//timer->changeInterval(msec);
+
 	//檢查完就重新畫
 	myview->paint();
 }
@@ -65,9 +193,250 @@ void model::checkfloar()
 	//檢查tetris[]是不是撞上天花板了
 	if (true)
 	{
+		timer->stop();
 		//關掉timer
 		//endgame
 		//該stop要stop
 		//tetris記得delete
 	}
+}
+
+bool model::checkintetris(block input)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (input.pos[i][j] > 0)
+			{
+				//是否超界
+				if (input.cell[0] + i < 0 || input.cell[0] + i >= row || input.cell[1] + j < 0 || input.cell[1] + j >= column)
+					return false;
+				//是否重疊
+				if (tetris[input.cell[0] + i][input.cell[1] + j] > 0)
+					return false;
+			}
+		}
+	}
+	return true;
+}
+
+void model::paintintetris()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (myblock.pos[i][j] > 0)
+			{
+				tetris[myblock.cell[0] + i][myblock.cell[1] + j] = myblock.pos[i][j];
+			}
+		}
+	}
+}
+
+void model::setoriginalshape()
+{
+	originalshape = new block[7][];
+	for (int i = 0; i < 7; i++)
+	{
+		originalshape[i] = new block[4];
+	}
+	for (int i = 0; i < 7; i++) {
+		//originalshape[i][0].type = 0;
+	}
+
+	//直條
+	originalshape[0][0].cell[0] = 3;
+	originalshape[0][0].cell[1] = 0;
+
+	originalshape[0][0].pos[2][0] = 1;
+	originalshape[0][0].pos[2][1] = 1;
+	originalshape[0][0].pos[2][2] = 1;
+	originalshape[0][0].pos[2][3] = 1;
+
+	originalshape[0][1].pos[0][2] = 1;
+	originalshape[0][1].pos[1][2] = 1;
+	originalshape[0][1].pos[2][2] = 1;
+	originalshape[0][1].pos[3][2] = 1;
+
+	originalshape[0][2].pos[2][0] = 1;
+	originalshape[0][2].pos[2][1] = 1;
+	originalshape[0][2].pos[2][2] = 1;
+	originalshape[0][2].pos[2][3] = 1;
+
+	originalshape[0][3].pos[0][2] = 1;
+	originalshape[0][3].pos[1][2] = 1;
+	originalshape[0][3].pos[2][2] = 1;
+	originalshape[0][3].pos[3][2] = 1;
+
+	//方塊
+	originalshape[1][0].cell[0] = 5;
+	originalshape[1][0].cell[1] = 0;
+
+	originalshape[1][0].pos[0][0] = 2;
+	originalshape[1][0].pos[1][0] = 2;
+	originalshape[1][0].pos[0][1] = 2;
+	originalshape[1][0].pos[1][1] = 2;
+
+	originalshape[1][1].pos[0][0] = 2;
+	originalshape[1][1].pos[1][0] = 2;
+	originalshape[1][1].pos[0][1] = 2;
+	originalshape[1][1].pos[1][1] = 2;
+
+	originalshape[1][2].pos[0][0] = 2;
+	originalshape[1][2].pos[1][0] = 2;
+	originalshape[1][2].pos[0][1] = 2;
+	originalshape[1][2].pos[1][1] = 2;
+
+	originalshape[1][3].pos[0][0] = 2;
+	originalshape[1][3].pos[1][0] = 2;
+	originalshape[1][3].pos[0][1] = 2;
+	originalshape[1][3].pos[1][1] = 2;
+
+	//T型
+	originalshape[2][0].cell[0] = 4;
+	originalshape[2][0].cell[1] = 0;
+
+	originalshape[2][0].pos[0][0] = 3;
+	originalshape[2][0].pos[1][0] = 3;
+	originalshape[2][0].pos[2][0] = 3;
+	originalshape[2][0].pos[1][1] = 3;
+
+	originalshape[2][1].pos[0][1] = 3;
+	originalshape[2][1].pos[1][0] = 3;
+	originalshape[2][1].pos[1][1] = 3;
+	originalshape[2][1].pos[1][2] = 3;
+
+	originalshape[2][2].pos[0][1] = 3;
+	originalshape[2][2].pos[1][1] = 3;
+	originalshape[2][2].pos[2][1] = 3;
+	originalshape[2][2].pos[1][0] = 3;
+
+	originalshape[2][3].pos[0][0] = 3;
+	originalshape[2][3].pos[0][1] = 3;
+	originalshape[2][3].pos[0][2] = 3;
+	originalshape[2][3].pos[1][1] = 3;
+
+	//正L
+	originalshape[3][0].cell[0] = 5;
+	originalshape[3][0].cell[1] = 0;
+
+	originalshape[3][0].pos[0][0] = 4;
+	originalshape[3][0].pos[1][0] = 4;
+	originalshape[3][0].pos[2][0] = 4;
+	originalshape[3][0].pos[0][1] = 4;
+
+	originalshape[3][1].pos[2][0] = 4;
+	originalshape[3][1].pos[2][1] = 4;
+	originalshape[3][1].pos[2][2] = 4;
+	originalshape[3][1].pos[1][0] = 4;
+
+	originalshape[3][2].pos[0][2] = 4;
+	originalshape[3][2].pos[1][2] = 4;
+	originalshape[3][2].pos[2][2] = 4;
+	originalshape[3][2].pos[2][1] = 4;
+
+	originalshape[3][3].pos[0][0] = 4;
+	originalshape[3][3].pos[0][1] = 4;
+	originalshape[3][3].pos[0][2] = 4;
+	originalshape[3][3].pos[1][2] = 4;
+	//逆L
+	originalshape[4][0].cell[0] = 4;
+	originalshape[4][0].cell[1] = 0;
+
+	originalshape[4][0].pos[0][0] = 5;
+	originalshape[4][0].pos[1][0] = 5;
+	originalshape[4][0].pos[2][0] = 5;
+	originalshape[4][0].pos[2][1] = 5;
+
+	originalshape[4][1].pos[2][0] = 5;
+	originalshape[4][1].pos[2][1] = 5;
+	originalshape[4][1].pos[2][2] = 5;
+	originalshape[4][1].pos[1][2] = 5;
+
+	originalshape[4][2].pos[0][2] = 5;
+	originalshape[4][2].pos[1][2] = 5;
+	originalshape[4][2].pos[2][2] = 5;
+	originalshape[4][2].pos[0][1] = 5;
+
+	originalshape[4][3].pos[0][0] = 5;
+	originalshape[4][3].pos[0][1] = 5;
+	originalshape[4][3].pos[0][2] = 5;
+	originalshape[4][3].pos[1][0] = 5;
+	//正S
+	originalshape[5][0].cell[0] = 4;
+	originalshape[5][0].cell[1] = 0;
+
+	originalshape[5][0].pos[2][0] = 6;
+	originalshape[5][0].pos[1][0] = 6;
+	originalshape[5][0].pos[1][1] = 6;
+	originalshape[5][0].pos[0][2] = 6;
+
+	originalshape[5][1].pos[0][0] = 6;
+	originalshape[5][1].pos[0][1] = 6;
+	originalshape[5][1].pos[1][1] = 6;
+	originalshape[5][1].pos[1][2] = 6;
+
+	originalshape[5][2].pos[2][0] = 6;
+	originalshape[5][2].pos[1][0] = 6;
+	originalshape[5][2].pos[1][1] = 6;
+	originalshape[5][2].pos[0][2] = 6;
+
+	originalshape[5][3].pos[0][0] = 6;
+	originalshape[5][3].pos[0][1] = 6;
+	originalshape[5][3].pos[1][1] = 6;
+	originalshape[5][3].pos[1][2] = 6;
+	//Z
+	originalshape[6][0].cell[0] = 4;
+	originalshape[6][0].cell[1] = 0;
+
+	originalshape[6][0].pos[0][0] = 7;
+	originalshape[6][0].pos[1][0] = 7;
+	originalshape[6][0].pos[1][1] = 7;
+	originalshape[6][0].pos[2][0] = 7;
+
+	originalshape[6][1].pos[1][0] = 7;
+	originalshape[6][1].pos[1][1] = 7;
+	originalshape[6][1].pos[0][1] = 7;
+	originalshape[6][1].pos[0][2] = 7;
+
+	originalshape[6][2].pos[0][0] = 7;
+	originalshape[6][2].pos[1][0] = 7;
+	originalshape[6][2].pos[1][1] = 7;
+	originalshape[6][2].pos[2][0] = 7;
+
+	originalshape[6][3].pos[1][0] = 7;
+	originalshape[6][3].pos[1][1] = 7;
+	originalshape[6][3].pos[0][1] = 7;
+	originalshape[6][3].pos[0][2] = 7;
+}
+
+block model::createnewpeace()
+{
+	int n = qrand() % 7;
+	block temp = copyablock(originalshape[n][0]);
+	myBlockType = n;
+	myBlockRotate = 0;
+	return temp;
+}
+
+block model::copyablock(block input)
+{
+	block temp;
+	temp.cell[0] = input[n].cell[0];
+	temp.cell[1] = input[n].cell[1];
+
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			temp.pos[i][j] = input[n].pos[i][j];
+	return temp;
+}
+
+block model::copyrotateblock()
+{
+	block temp = copyablock(originalshape[myBlockType][myBlockRotate]);
+	temp.cell[0] = myblock.cell[0];
+	temp.cell[1] = myblock.cell[1];
+	return temp;
 }
