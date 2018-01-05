@@ -11,10 +11,12 @@ class view;
 #define right_rotate 2
 #define left_rotate 3
 #define down 4
+#define storage 5
 struct block
 {
 	int pos[2];//現在這個block對應到整個畫面的座標，以左上為基準去計算
 	int cell[4][4];//改成4*4
+	int type, rotate;
 };
 //  ____ ____ ____
 // |pos | 1  | 2  |
@@ -41,11 +43,13 @@ public:
 	void setgame();
 	void tetris_move(int direction);
 	void tetris_rotate(int direction);
+	void tetris_storage();
 	void tetris_fall();
 
 	int getscore() { return score; }
 	int** gettetris() { return tetris; }
 	block getnextTetris() { return nextblock; }
+	block getstorageTetris() { return storageblock; }
 	block getTetris() { return myblock; }
 private:
 	view* myview;
@@ -69,11 +73,10 @@ private:
 	float level;
 	int fallSpeed;
 	int score = 0;
-	int myBlockType;
-	int myBlockRotate;
 	bool inTurnChangeTime;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個
+	block storageblock;
 	block** originalshape;
 	QTimer timer;
 };

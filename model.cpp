@@ -22,7 +22,7 @@ void model::setgame()
 
 	//設置block
 	myblock = createnewpeace();
-	paintintetris();
+	//paintintetris();
 	nextblock = createnewpeace();
 
 	//設定完後就讓view把遊戲畫面畫出來
@@ -62,22 +62,21 @@ void model::tetris_move(int direction)
 void model::tetris_rotate(int direction)
 {
 	if (!inTurnChangeTime) {
-		int tempNum;
 		block temp;
 
 		if (direction == right_rotate)
 		{
-			myBlockRotate++;
-			if (myBlockRotate > 3)
-				myBlockRotate == 0;
+			myblock.rotate++;
+			if (myblock.rotate > 3)
+				myblock.rotate == 0;
 			temp = copyrotateblock();
 		}
 		else if (direction == left_rotate)
 		{
-			myBlockRotate--;
-			if (myBlockRotate < 0)
-				myBlockRotate == 3;
-
+			myblock.rotate--;
+			if (myblock.rotate < 0)
+				myblock.rotate == 3;
+			temp = copyrotateblock();
 		}
 
 		if (checkintetris(temp))
@@ -88,6 +87,19 @@ void model::tetris_rotate(int direction)
 		//注意tetris中原本就有東西的地方
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
 
+		//做完後
+		myview->paint();
+	}
+}
+
+void model::tetris_storage()
+{
+	if (!inTurnChangeTime) {
+		block temp = copyablock(originalshape[myblock.type][0]);
+		myblock = copyablock(storageblock);
+		storageblock = copyablock(temp);
+
+		checkfloar();
 		//做完後
 		myview->paint();
 	}
@@ -130,7 +142,7 @@ void model::mainloop()
 {
 	block temp;
 	if (!inTurnChangeTime) {
-
+		inTurnChangeTime = true;
 		temp = copyablock(myblock);
 		temp.cell[1]++;
 		if (checkintetris(temp))
@@ -139,7 +151,7 @@ void model::mainloop()
 		}
 		else
 		{
-			inTurnChangeTime = true;
+			//inTurnChangeTime = true;
 			paintintetris();
 			checkline();
 			myblock = copyablock(nextblock);
@@ -175,25 +187,45 @@ void model::checkline()
 		if (checkReg)
 		{
 			isFull[i] = true;
-			score++;
+			score += level;
 			level++;
 		}
 	}
+
+	if (level / 5 > 0)
+	{
+		speed -= (level/5)*10
+	}
+
+	int k = 0;
+	for (int i = 0; i < column; i++) {
+		if (!isFull[i])
+		{
+			if (K != i) {
+				for (int j = 0; j < row; j++) {
+					tetris[k][j] = tetris[i][j];
+				}
+			}
+			k++;
+		}
+	}
 	//檢查有沒有東西能消，有就加分
-	score++;
+	//score++;
 	//更改speed用
 	//timer->changeInterval(msec);
 
 	//檢查完就重新畫
-	myview->paint();
+	//myview->paint();
 }
 
 void model::checkfloar()
 {
+	bool continueGame = checkintetris(myblock);
 	//檢查tetris[]是不是撞上天花板了
-	if (true)
+	if (!continueGame)
 	{
 		timer->stop();
+		inTurnChangeTime = true;
 		//關掉timer
 		//endgame
 		//該stop要stop
@@ -254,6 +286,8 @@ void model::setoriginalshape()
 	originalshape[0][0].pos[2][1] = 1;
 	originalshape[0][0].pos[2][2] = 1;
 	originalshape[0][0].pos[2][3] = 1;
+	originalshape[0][0].type = 0;
+	originalshape[0][0].rotate = 0;
 
 	originalshape[0][1].pos[0][2] = 1;
 	originalshape[0][1].pos[1][2] = 1;
@@ -278,6 +312,8 @@ void model::setoriginalshape()
 	originalshape[1][0].pos[1][0] = 2;
 	originalshape[1][0].pos[0][1] = 2;
 	originalshape[1][0].pos[1][1] = 2;
+	originalshape[1][0].type = 1;
+	originalshape[1][0].rotate = 0;
 
 	originalshape[1][1].pos[0][0] = 2;
 	originalshape[1][1].pos[1][0] = 2;
@@ -302,6 +338,8 @@ void model::setoriginalshape()
 	originalshape[2][0].pos[1][0] = 3;
 	originalshape[2][0].pos[2][0] = 3;
 	originalshape[2][0].pos[1][1] = 3;
+	originalshape[2][0].type = 2;
+	originalshape[2][0].rotate = 0;
 
 	originalshape[2][1].pos[0][1] = 3;
 	originalshape[2][1].pos[1][0] = 3;
@@ -326,6 +364,8 @@ void model::setoriginalshape()
 	originalshape[3][0].pos[1][0] = 4;
 	originalshape[3][0].pos[2][0] = 4;
 	originalshape[3][0].pos[0][1] = 4;
+	originalshape[3][0].type = 3;
+	originalshape[3][0].rotate = 0;
 
 	originalshape[3][1].pos[2][0] = 4;
 	originalshape[3][1].pos[2][1] = 4;
@@ -349,6 +389,8 @@ void model::setoriginalshape()
 	originalshape[4][0].pos[1][0] = 5;
 	originalshape[4][0].pos[2][0] = 5;
 	originalshape[4][0].pos[2][1] = 5;
+	originalshape[4][0].type = 4;
+	originalshape[4][0].rotate = 0;
 
 	originalshape[4][1].pos[2][0] = 5;
 	originalshape[4][1].pos[2][1] = 5;
@@ -372,6 +414,8 @@ void model::setoriginalshape()
 	originalshape[5][0].pos[1][0] = 6;
 	originalshape[5][0].pos[1][1] = 6;
 	originalshape[5][0].pos[0][2] = 6;
+	originalshape[5][0].type = 5;
+	originalshape[5][0].rotate = 0;
 
 	originalshape[5][1].pos[0][0] = 6;
 	originalshape[5][1].pos[0][1] = 6;
@@ -395,6 +439,8 @@ void model::setoriginalshape()
 	originalshape[6][0].pos[1][0] = 7;
 	originalshape[6][0].pos[1][1] = 7;
 	originalshape[6][0].pos[2][0] = 7;
+	originalshape[6][0].type = 6;
+	originalshape[6][0].rotate = 0;
 
 	originalshape[6][1].pos[1][0] = 7;
 	originalshape[6][1].pos[1][1] = 7;
@@ -416,16 +462,16 @@ block model::createnewpeace()
 {
 	int n = qrand() % 7;
 	block temp = copyablock(originalshape[n][0]);
-	myBlockType = n;
-	myBlockRotate = 0;
 	return temp;
 }
 
 block model::copyablock(block input)
 {
 	block temp;
-	temp.cell[0] = input[n].cell[0];
-	temp.cell[1] = input[n].cell[1];
+	temp.cell[0] = input.cell[0];
+	temp.cell[1] = input.cell[1];
+	temp.type = input.type;
+	temp.rotate = input.rotate;
 
 	for (int i = 0; i < 4; i++)
 		for (int j = 0; j < 4; j++)
@@ -435,7 +481,7 @@ block model::copyablock(block input)
 
 block model::copyrotateblock()
 {
-	block temp = copyablock(originalshape[myBlockType][myBlockRotate]);
+	block temp = copyablock(originalshape[myblock.type][myblock.rotate]);
 	temp.cell[0] = myblock.cell[0];
 	temp.cell[1] = myblock.cell[1];
 	return temp;
