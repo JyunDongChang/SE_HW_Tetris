@@ -9,18 +9,27 @@ void view::input()
 {
 	//不斷刷新抓input(qt抓鍵盤的event看最下面註解掉的)
 	//抓到丟給controller
-	int direct=0;
-	if (direct == right)//根據解讀出來的下指令
-	{
-		mymodel->tetris_move(right);//左右位移
-		//mymodel->tetris_rotate(right);//順時鐘旋轉
-		//mymodel->tetris_fall();//直接落下
+	switch (event->key()) {
+	case Qt::Key_Left:
+		mymodel->tetris_move(left_move)
+		break;
+	case Qt::Key_Right:
+		mymodel->tetris_move(right);
+		break;
+	case Qt::Key_Down:
+		mymodel->tetris_fall();
+		break;
+	case Qt::Key_Up:
+		mymodel->tetris_rotate(right);
+		break;
+	case Qt::Key_Space:
+		break;
+	case Qt::Key_D:
+		oneLineDown();
+		break;
+	default:
+		QFrame::keyPressEvent(event);
 	}
-	//model.h有定義方向，增加可讀性請用這define去寫例子如上
-	//#define right 0
-	//#define left 1
-	//#define down 2
-
 	/*
 	// 當然要include qt那些有的沒有的喔
 	// 鍵盤按下事件
@@ -57,7 +66,67 @@ void view::gameover()
 	//拿資料然後重畫
 	//可能和init類似
 }*/
+view_1::TetrixWindow()
+{
+	board = new TetrixBoard;
 
+	nextPieceLabel = new QLabel;
+	nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
+	nextPieceLabel->setAlignment(Qt::AlignCenter);
+	board->setNextPieceLabel(nextPieceLabel);
+
+	scoreLcd = new QLCDNumber(5);
+	scoreLcd->setSegmentStyle(QLCDNumber::Filled);
+	levelLcd = new QLCDNumber(2);
+	levelLcd->setSegmentStyle(QLCDNumber::Filled);
+	linesLcd = new QLCDNumber(5);
+	linesLcd->setSegmentStyle(QLCDNumber::Filled);
+
+	startButton = new QPushButton(tr("&Start"));
+	startButton->setFocusPolicy(Qt::NoFocus);
+	quitButton = new QPushButton(tr("&Quit"));
+	quitButton->setFocusPolicy(Qt::NoFocus);
+	pauseButton = new QPushButton(tr("&Pause"));
+	pauseButton->setFocusPolicy(Qt::NoFocus);
+
+	connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+	connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+	connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
+	connect(board, SIGNAL(levelChanged(int)), levelLcd, SLOT(display(int)));
+	connect(board, SIGNAL(linesRemovedChanged(int)),
+		linesLcd, SLOT(display(int)));
+
+	QGridLayout *layout = new QGridLayout;
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(nextPieceLabel, 1, 0);
+	layout->addWidget(createLabel(tr("LEVEL")), 2, 0);
+	layout->addWidget(levelLcd, 3, 0);
+	layout->addWidget(startButton, 4, 0);
+	layout->addWidget(board, 0, 1, 6, 1);
+	layout->addWidget(createLabel(tr("SCORE")), 0, 2);
+	layout->addWidget(scoreLcd, 1, 2);
+	layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
+	layout->addWidget(linesLcd, 3, 2);
+	layout->addWidget(quitButton, 4, 2);
+	layout->addWidget(pauseButton, 5, 2);
+	setLayout(layout);
+
+	setWindowTitle(tr("Tetrix"));
+	resize(550, 370);
+
+	//依據Model的資料畫出來遊戲畫面
+	//可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
+	//然後這邊就傳入不同的參數就可以變更了
+	//當然我還沒看qt，不清楚這現實不現實
+}
+
+QLabel *view_1::createLabel(const QString &text)
+{
+	QLabel *lbl = new QLabel(text);
+	lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+	return lbl;
+}/*
 void view_1::paint()
 {
 	mymodel->getTetris();
@@ -69,3 +138,4 @@ void view_1::paint()
 	//然後這邊就傳入不同的參數就可以變更了
 	//當然我還沒看qt，不清楚這現實不現實
 }
+*/

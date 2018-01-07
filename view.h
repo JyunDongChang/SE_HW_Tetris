@@ -1,7 +1,11 @@
 #pragma once
 #include "controller.h"
 #include "model.h"
-
+#include <QFrame>
+#include <QWidget>
+class QLCDNumber;
+class QLabel;
+class QPushButton;
 class controller;
 class model;
 class view
@@ -17,10 +21,22 @@ protected:
 	controller* mycontroller;
 };
 //實現每個人的view去
-class view_1:public view
+class view_1 : public QWidget
 {
-public:
-	void paint();
-private:
+	Q_OBJECT
 
+public:
+	TetrixWindow();
+
+private:
+	QLabel *createLabel(const QString &text);
+
+	TetrixBoard *board;
+	QLabel *nextPieceLabel;
+	QLCDNumber *scoreLcd;
+	QLCDNumber *levelLcd;
+	QLCDNumber *linesLcd;
+	QPushButton *startButton;
+	QPushButton *quitButton;
+	QPushButton *pauseButton;
 };
