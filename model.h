@@ -1,6 +1,8 @@
 #pragma once
 #include "controller.h"
 #include "view.h"
+#include <QObject>
+#include <QTimer>
 class controller;
 class view;
 
@@ -14,8 +16,8 @@ class view;
 #define storage 5
 struct block
 {
-	int pos[2];//現在這個block對應到整個畫面的座標，以左上為基準去計算
-	int cell[4][4];//改成4*4
+    int pos[2] = {0};//現在這個block對應到整個畫面的座標，以左上為基準去計算
+    int cell[4][4] = {{0},{0}};//改成4*4
 	int type, rotate;
 };
 //  ____ ____ ____
@@ -35,7 +37,7 @@ struct block
 //  －－ －－ －－
 // 以後可以改放其他數字，來區分顏色
 // 現在先用bool區分有沒有就好
-class model
+class model : public QObject
 {
 public:
 	model() { ; }
@@ -60,23 +62,23 @@ private:
 	void checkline();
 	void checkfloar();
 	//將更改後的block丟進來先判斷是否會出現 1.超界 2.重疊原始資料
-	bool checkintetris();
+    bool checkintetris(block input);
 	//將確認能繪製進主tetris的myblock填入tetris
 	void paintintetris();
 	void setoriginalshape();
 	block createnewpeace();
-	block copyablock();
+    block copyablock(block input);
 	block copyrotateblock();
 	//每一個橫排有10個
 	//總共有20個橫排高
 	int** tetris;
 	float level;
 	int fallSpeed;
-	int score = 0;
+    int score;
 	bool inTurnChangeTime;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個
 	block storageblock;
-	block** originalshape;
-	QTimer timer;
+    block originalshape[7][4];
+    QTimer *timer;
 };
