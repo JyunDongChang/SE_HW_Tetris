@@ -1,5 +1,6 @@
 #pragma once
-
+#include "model.h"
+#include "view.h"
 
 class model;
 class view;
@@ -11,5 +12,5 @@ public:
 	int startgame();
 private:
 	model* mymodel;
-	view* myview;
+    view* myview;
 };

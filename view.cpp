@@ -118,8 +118,6 @@ void view::gameover()
 }*/
 view_1::view_1()
 {
-    board = new view;
-
 	nextPieceLabel = new QLabel;
 	nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
 	nextPieceLabel->setAlignment(Qt::AlignCenter);
@@ -139,21 +137,18 @@ view_1::view_1()
 	pauseButton = new QPushButton(tr("&Pause"));
 	pauseButton->setFocusPolicy(Qt::NoFocus);
 
-	connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
-	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-	connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
-	connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
-	connect(board, SIGNAL(levelChanged(int)), levelLcd, SLOT(display(int)));
-	connect(board, SIGNAL(linesRemovedChanged(int)),
-		linesLcd, SLOT(display(int)));
+    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    //connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
+
+    scoreLcd->display(mymodel->getscore());
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
 	layout->addWidget(nextPieceLabel, 1, 0);
-	layout->addWidget(createLabel(tr("LEVEL")), 2, 0);
-	layout->addWidget(levelLcd, 3, 0);
 	layout->addWidget(startButton, 4, 0);
-	layout->addWidget(board, 0, 1, 6, 1);
+    //layout->addWidget(board, 0, 1, 6, 1);
 	layout->addWidget(createLabel(tr("SCORE")), 0, 2);
 	layout->addWidget(scoreLcd, 1, 2);
 	layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);

@@ -1,6 +1,4 @@
-#include "model.h";
-#include "view.h";
-#include "controller.h"
+#include "model.h"
 #include <QObject>
 #include <QTimer>
 #include <QTime>
@@ -16,14 +14,14 @@ void model::setgame()
     fallSpeed = 1500;
 	inTurnChangeTime = false;
 
-	tetris = new int*[column];
-	for (int i = 0; i < column; i++)
-		tetris[i] = new int[row];
+	tetris = new int*[tetrisColumn];
+	for (int i = 0; i < tetrisColumn; i++)
+		tetris[i] = new int[tetrisRow];
 	//初始化遊戲設定
 	//EX:設定初始掉落速度，開始mainloop之類的
 
-	for (int i = 0; i < column; i++)
-		for (int j = 0; j < row; j++)
+	for (int i = 0; i < tetrisColumn; i++)
+		for (int j = 0; j < tetrisRow; j++)
 			tetris[i][j] = 0;
 
 	//設置block
@@ -74,14 +72,14 @@ void model::tetris_rotate(int direction)
 		{
 			myblock.rotate++;
 			if (myblock.rotate > 3)
-				myblock.rotate == 0;
+				myblock.rotate = 0;
 			temp = copyrotateblock();
 		}
 		else if (direction == left_rotate)
 		{
 			myblock.rotate--;
 			if (myblock.rotate < 0)
-				myblock.rotate == 3;
+				myblock.rotate = 3;
 			temp = copyrotateblock();
 		}
 
@@ -180,10 +178,10 @@ void model::mainloop()
 void model::checkline()
 {
 	bool checkReg;
-	bool isFull[column] = { false };
-	for (int i = 0; i < column; i++) {
+	bool isFull[tetrisColumn] = { false };
+	for (int i = 0; i < tetrisColumn; i++) {
 		checkReg = true;
-		for (int j = 0; j < row; j++) {
+		for (int j = 0; j < tetrisRow; j++) {
 			if (tetris[i][j] == 0)
 			{
 				checkReg = false;
@@ -204,11 +202,11 @@ void model::checkline()
 	}
 
 	int k = 0;
-	for (int i = 0; i < column; i++) {
+	for (int i = 0; i < tetrisColumn; i++) {
 		if (!isFull[i])
 		{
             if (k != i) {
-				for (int j = 0; j < row; j++) {
+				for (int j = 0; j < tetrisRow; j++) {
 					tetris[k][j] = tetris[i][j];
 				}
 			}
@@ -248,7 +246,7 @@ bool model::checkintetris(block input)
             if (input.cell[i][j] > 0)
 			{
 				//是否超界
-                if (input.pos[0] + i < 0 || input.pos[0] + i >= row || input.pos[1] + j < 0 || input.pos[1] + j >= column)
+                if (input.pos[0] + i < 0 || input.pos[0] + i >= tetrisRow || input.pos[1] + j < 0 || input.pos[1] + j >= tetrisColumn)
 					return false;
 				//是否重疊
                 if (tetris[input.pos[0] + i][input.pos[1] + j] > 0)
@@ -459,7 +457,7 @@ void model::setoriginalshape()
 
 block model::createnewpeace()
 {
-	int n = qrand() % 7;
+    int n = qrand()%8;
 	block temp = copyablock(originalshape[n][0]);
 	return temp;
 }

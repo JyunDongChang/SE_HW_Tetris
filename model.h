@@ -6,14 +6,14 @@
 class controller;
 class view;
 
-#define row 10
-#define column 20
+#define tetrisRow 10
+#define tetrisColumn 20
 #define right_move 0
 #define left_move 1
 #define right_rotate 2
 #define left_rotate 3
 #define down 4
-#define storage 5
+#define tetrisStorage 5
 struct block
 {
     int pos[2] = {0};//現在這個block對應到整個畫面的座標，以左上為基準去計算

@@ -1,11 +1,9 @@
-#include "model.h";
-#include "view.h";
 #include "controller.h"
 
 controller::controller()
 {
 	mymodel = new model;
-	myview = new view_1;
+    myview = new view;
 	mymodel->set(myview, this);
 	myview->set(mymodel, this);
 }
