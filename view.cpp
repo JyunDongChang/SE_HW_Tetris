@@ -3,8 +3,6 @@
 
 void view::paint()
 {
-    QFrame::paintEvent(event);
-
     QPainter painter(this);
     QRect rect = contentsRect();
 /*
@@ -13,13 +11,12 @@ void view::paint()
         return;
     }
 */
-    model temp();
-    block curPiece=temp.getTetris();
-    int **tetrisBoard= temp.getstorageTetris();
-    int boardTop = rect.bottom() - column*squareHeight();
+    block curPiece=mymodel->getstorageTetris();
+    int ** tetrisBoard= mymodel->gettetris();
+    int boardTop = rect.bottom() - tetrisColumn*squareHeight();
 
-    for (int i = 0; i < column; ++i) {
-        for (int j = 0; j < row; ++j) {
+    for (int i = 0; i < tetrisColumn; ++i) {
+        for (int j = 0; j < tetrisRow; ++j) {
             //TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
             if (tetrisBoard[i][j])
                 drawSquare(painter, rect.left() + j * squareWidth(),
@@ -30,14 +27,13 @@ void view::paint()
 // 這裡是在畫目前的方塊
     for (int i = 0; i < 4; ++i) {
        for(int j=0;j<4;++j){
-            if(cell[i][j])
+            if(curPiece.cell[i][j])
                 drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
-                       boardTop + (column - curPiece.pos[1]+j - 1) * squareHeight());
+                       boardTop + (tetrisColumn - curPiece.pos[1]+j - 1) * squareHeight());
             }
-        }
     }  
 }
-void view::input()
+void view::keyPressEvent(QKeyEvent *event)
 {
 	//不斷刷新抓input(qt抓鍵盤的event看最下面註解掉的)
 	//抓到丟給controller
@@ -46,21 +42,21 @@ void view::input()
         mymodel->tetris_move(left_move);
 		break;
 	case Qt::Key_Right:
-		mymodel->tetris_move(right);
+        mymodel->tetris_move(right_move);
 		break;
 	case Qt::Key_Down:
 		mymodel->tetris_fall();
 		break;
 	case Qt::Key_Up:
-		mymodel->tetris_rotate(right);
+        mymodel->tetris_rotate(right_move);
 		break;
 	case Qt::Key_Space:
 		break;
 	case Qt::Key_D:
-		oneLineDown();
+        //oneLineDown();
 		break;
 	default:
-		QFrame::keyPressEvent(event);
+        QFrame::keyPressEvent(event);
 	}
 	/*
 	// 當然要include qt那些有的沒有的喔
@@ -122,12 +118,12 @@ void view::gameover()
 }*/
 view_1::view_1()
 {
-	board = new TetrixBoard;
+    board = new view;
 
 	nextPieceLabel = new QLabel;
 	nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
 	nextPieceLabel->setAlignment(Qt::AlignCenter);
-	board->setNextPieceLabel(nextPieceLabel);
+//	board->setNextPieceLabel(nextPieceLabel);
 
 	scoreLcd = new QLCDNumber(5);
 	scoreLcd->setSegmentStyle(QLCDNumber::Filled);

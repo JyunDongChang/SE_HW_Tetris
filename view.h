@@ -10,18 +10,18 @@ class QLabel;
 class QPushButton;
 class controller;
 class model;
-class view :public QWidget
+class view :public QFrame
 {
 public:
         view() { ; }
         void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
         virtual void paint() = 0;
-        void input();
         void gameover();
         void drawSquare(QPainter &painter, int x, int y);
-        void paintEvent(QPaintEvent *event);
         int squareWidth() { return contentsRect().width() / 10; }
         int squareHeight() { return contentsRect().height() / 20; }
+private:
+        void keyPressEvent(QKeyEvent *event) override;
 protected:
         model* mymodel;
         controller* mycontroller;
