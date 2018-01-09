@@ -1,17 +1,18 @@
-#include "model.h";
-#include "view.h";
+ï»¿#include "model.h"
+#include "view.h"
 #include "controller.h"
+#include <QtWidgets>
 
 void view::paint()
 {
 }
 void view::input()
 {
-	//¤£Â_¨ê·s§ìinput(qt§ìÁä½Lªºevent¬İ³Ì¤U­±µù¸Ñ±¼ªº)
-	//§ì¨ì¥áµ¹controller
+	//ä¸æ–·åˆ·æ–°æŠ“input(qtæŠ“éµç›¤çš„eventçœ‹æœ€ä¸‹é¢è¨»è§£æ‰çš„)
+	//æŠ“åˆ°ä¸Ÿçµ¦controller
 	switch (event->key()) {
 	case Qt::Key_Left:
-		mymodel->tetris_move(left_move)
+        mymodel->tetris_move(left_move);
 		break;
 	case Qt::Key_Right:
 		mymodel->tetris_move(right);
@@ -31,23 +32,23 @@ void view::input()
 		QFrame::keyPressEvent(event);
 	}
 	/*
-	// ·íµM­ninclude qt¨º¨Ç¦³ªº¨S¦³ªº³á
-	// Áä½L«ö¤U¨Æ¥ó
+	// ç•¶ç„¶è¦include qté‚£äº›æœ‰çš„æ²’æœ‰çš„å–”
+	// éµç›¤æŒ‰ä¸‹äº‹ä»¶
 
 	void Widget::keyPressEvent(QKeyEvent *event)
 	{
-	// ¬O§_«ö¤UCtrlÁä ¯S®í«öÁä
+	// æ˜¯å¦æŒ‰ä¸‹Ctrléµ ç‰¹æ®ŠæŒ‰éµ
 	if (event->modifiers() == Qt::ControlModifier) {
-	// ¬O§_«ö¤UMÁä ´¶³q®×Áä Ãş¦ü
+	// æ˜¯å¦æŒ‰ä¸‹Méµ æ™®é€šæ¡ˆéµ é¡ä¼¼
 	if (event->key() == Qt::Key_M)
 	...
 	}
-	else QWidget::keyPressEvent(event);   //«O¦sÀq»{¨Æ¥ó
-	// ¦pªG¬O³B²z¨â­Ó´¶³q«öÁä¡A±oÁ×§K¦Û°Ê­«½Æ¡AÄÀ©ñ¤¤¤]­n³B²z
+	else QWidget::keyPressEvent(event);   //ä¿å­˜é»˜èªäº‹ä»¶
+	// å¦‚æœæ˜¯è™•ç†å…©å€‹æ™®é€šæŒ‰éµï¼Œå¾—é¿å…è‡ªå‹•é‡è¤‡ï¼Œé‡‹æ”¾ä¸­ä¹Ÿè¦è™•ç†
 	if (event->key() == Qt::Key_Up) {
-	// ®×¥ó­«½Æ®É¤£°µ³B²z
+	// æ¡ˆä»¶é‡è¤‡æ™‚ä¸åšè™•ç†
 	if (event->isAutoRepeat()) return;
-	// ¼Ğ°O¦V¤W¤è¦VÁä¤w¸g«ö¤U
+	// æ¨™è¨˜å‘ä¸Šæ–¹å‘éµå·²ç¶“æŒ‰ä¸‹
 	keyUp = true;
 	}
 	else if (event->key() == Qt::Key_Left) {
@@ -58,15 +59,15 @@ void view::input()
 }
 void view::gameover()
 {
-	//¦b¥¿¤¤¶¡µe­Ó"Game Over"ªºtext
-	//·íµMÄ@·N¥h§Ë¶K¹Ï¬O³Ì¦nªº
+	//åœ¨æ­£ä¸­é–“ç•«å€‹"Game Over"çš„text
+	//ç•¶ç„¶é¡˜æ„å»å¼„è²¼åœ–æ˜¯æœ€å¥½çš„
 }
 /*void view::repaint()
 {
-	//®³¸ê®ÆµM«á­«µe
-	//¥i¯à©MinitÃş¦ü
+	//æ‹¿è³‡æ–™ç„¶å¾Œé‡ç•«
+	//å¯èƒ½å’Œinité¡ä¼¼
 }*/
-view_1::TetrixWindow()
+view_1::view_1()
 {
 	board = new TetrixBoard;
 
@@ -115,10 +116,10 @@ view_1::TetrixWindow()
 	setWindowTitle(tr("Tetrix"));
 	resize(550, 370);
 
-	//¨Ì¾ÚModelªº¸ê®Æµe¥X¨Ó¹CÀ¸µe­±
-	//¥i¥H¦Ò¼{¦bview¥ı¼g¦nPaintScore(®y¼Ğ) PaintNextBlock(®y¼Ğ)¤§Ãşªº
-	//µM«á³oÃä´N¶Ç¤J¤£¦Pªº°Ñ¼Æ´N¥i¥HÅÜ§ó¤F
-	//·íµM§ÚÁÙ¨S¬İqt¡A¤£²M·¡³o²{¹ê¤£²{¹ê
+	//ä¾æ“šModelçš„è³‡æ–™ç•«å‡ºä¾†éŠæˆ²ç•«é¢
+	//å¯ä»¥è€ƒæ…®åœ¨viewå…ˆå¯«å¥½PaintScore(åº§æ¨™) PaintNextBlock(åº§æ¨™)ä¹‹é¡çš„
+	//ç„¶å¾Œé€™é‚Šå°±å‚³å…¥ä¸åŒçš„åƒæ•¸å°±å¯ä»¥è®Šæ›´äº†
+	//ç•¶ç„¶æˆ‘é‚„æ²’çœ‹qtï¼Œä¸æ¸…æ¥šé€™ç¾å¯¦ä¸ç¾å¯¦
 }
 
 QLabel *view_1::createLabel(const QString &text)
@@ -133,9 +134,9 @@ void view_1::paint()
 	mymodel->getnextTetris();
 	mymodel->getscore();
 	mymodel->gettetris();
-	//¨Ì¾ÚModelªº¸ê®Æµe¥X¨Ó¹CÀ¸µe­±
-	//¥i¥H¦Ò¼{¦bview¥ı¼g¦nPaintScore(®y¼Ğ) PaintNextBlock(®y¼Ğ)¤§Ãşªº
-	//µM«á³oÃä´N¶Ç¤J¤£¦Pªº°Ñ¼Æ´N¥i¥HÅÜ§ó¤F
-	//·íµM§ÚÁÙ¨S¬İqt¡A¤£²M·¡³o²{¹ê¤£²{¹ê
+	//ä¾æ“šModelçš„è³‡æ–™ç•«å‡ºä¾†éŠæˆ²ç•«é¢
+	//å¯ä»¥è€ƒæ…®åœ¨viewå…ˆå¯«å¥½PaintScore(åº§æ¨™) PaintNextBlock(åº§æ¨™)ä¹‹é¡çš„
+	//ç„¶å¾Œé€™é‚Šå°±å‚³å…¥ä¸åŒçš„åƒæ•¸å°±å¯ä»¥è®Šæ›´äº†
+	//ç•¶ç„¶æˆ‘é‚„æ²’çœ‹qtï¼Œä¸æ¸…æ¥šé€™ç¾å¯¦ä¸ç¾å¯¦
 }
 */

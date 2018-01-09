@@ -1,8 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include "controller.h"
 #include "model.h"
 #include <QFrame>
-#include <QWidget>
+#include <QPointer>
+#include <QBasicTimer>
+
 class QLCDNumber;
 class QLabel;
 class QPushButton;
@@ -11,32 +13,32 @@ class model;
 class view
 {
 public:
-	view() { ; }
-	void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
-	virtual void paint() = 0;
-	void input();
-	void gameover();
+        view() { ; }
+        void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
+        virtual void paint() = 0;
+        void input();
+        void gameover();
 protected:
-	model* mymodel;
-	controller* mycontroller;
+        model* mymodel;
+        controller* mycontroller;
 };
-//¹ê²{¨C­Ó¤Hªºview¥h
+//
 class view_1 : public QWidget
 {
-	Q_OBJECT
+        Q_OBJECT
 
 public:
-	TetrixWindow();
+        view_1();
 
 private:
-	QLabel *createLabel(const QString &text);
+        QLabel *createLabel(const QString &text);
 
-	TetrixBoard *board;
-	QLabel *nextPieceLabel;
-	QLCDNumber *scoreLcd;
-	QLCDNumber *levelLcd;
-	QLCDNumber *linesLcd;
-	QPushButton *startButton;
-	QPushButton *quitButton;
-	QPushButton *pauseButton;
+        view *board;
+        QLabel *nextPieceLabel;
+        QLCDNumber *scoreLcd;
+        QLCDNumber *levelLcd;
+        QLCDNumber *linesLcd;
+        QPushButton *startButton;
+        QPushButton *quitButton;
+        QPushButton *pauseButton;
 };
