@@ -10,7 +10,7 @@ class QLabel;
 class QPushButton;
 class controller;
 class model;
-class view
+class view :public QWidget
 {
 public:
         view() { ; }
@@ -20,12 +20,14 @@ public:
         void gameover();
         void drawSquare(QPainter &painter, int x, int y);
         void paintEvent(QPaintEvent *event);
+        int squareWidth() { return contentsRect().width() / 10; }
+        int squareHeight() { return contentsRect().height() / 20; }
 protected:
         model* mymodel;
         controller* mycontroller;
 };
 //
-class view_1 : public QWidget
+class view_1 : public view
 {
         Q_OBJECT
 

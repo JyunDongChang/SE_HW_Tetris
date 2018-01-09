@@ -1,6 +1,4 @@
-﻿#include "model.h"
-#include "view.h"
-#include "controller.h"
+﻿#include "view.h"
 #include <QtWidgets>
 
 void view::paint()
@@ -9,14 +7,16 @@ void view::paint()
 
     QPainter painter(this);
     QRect rect = contentsRect();
-
+/*
     if (isPaused) {
         painter.drawText(rect, Qt::AlignCenter, tr("Pause"));
         return;
     }
+*/
     model temp();
+    block curPiece=temp.getTetris();
     int **tetrisBoard= temp.getstorageTetris();
-    int boardTop = rect.bottom() - BoardHeight*squareHeight();
+    int boardTop = rect.bottom() - column*squareHeight();
 
     for (int i = 0; i < column; ++i) {
         for (int j = 0; j < row; ++j) {
@@ -26,17 +26,16 @@ void view::paint()
                            boardTop + i * squareHeight());
         }
     }
-/*
-    if (curPiece.shape() != NoShape) {
-        for (int i = 0; i < 4; ++i) {
-            int x = curX + curPiece.x(i);
-            int y = curY - curPiece.y(i);
-            drawSquare(painter, rect.left() + x * squareWidth(),
-                       boardTop + (BoardHeight - y - 1) * squareHeight(),
-                       curPiece.shape());
+
+// 這裡是在畫目前的方塊
+    for (int i = 0; i < 4; ++i) {
+       for(int j=0;j<4;++j){
+            if(cell[i][j])
+                drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
+                       boardTop + (column - curPiece.pos[1]+j - 1) * squareHeight());
+            }
         }
-    }
-    */
+    }  
 }
 void view::input()
 {
