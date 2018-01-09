@@ -18,7 +18,7 @@ public:
         virtual void paint() = 0;
         void input();
         void gameover();
-        void drawSquare(QPainter &painter, int x, int y, TetrixShape shape);
+        void drawSquare(QPainter &painter, int x, int y);
         void paintEvent(QPaintEvent *event);
 protected:
         model* mymodel;

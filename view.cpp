@@ -14,18 +14,19 @@ void view::paint()
         painter.drawText(rect, Qt::AlignCenter, tr("Pause"));
         return;
     }
-
+    model temp();
+    int **tetrisBoard= temp.getstorageTetris();
     int boardTop = rect.bottom() - BoardHeight*squareHeight();
 
-    for (int i = 0; i < BoardHeight; ++i) {
-        for (int j = 0; j < BoardWidth; ++j) {
-            TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
-            if (shape != NoShape)
+    for (int i = 0; i < column; ++i) {
+        for (int j = 0; j < row; ++j) {
+            //TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
+            if (tetrisBoard[i][j])
                 drawSquare(painter, rect.left() + j * squareWidth(),
-                           boardTop + i * squareHeight(), shape);
+                           boardTop + i * squareHeight());
         }
     }
-
+/*
     if (curPiece.shape() != NoShape) {
         for (int i = 0; i < 4; ++i) {
             int x = curX + curPiece.x(i);
@@ -35,6 +36,7 @@ void view::paint()
                        curPiece.shape());
         }
     }
+    */
 }
 void view::input()
 {
@@ -87,14 +89,15 @@ void view::input()
 	}
 	*/
 }
-void view::drawSquare(QPainter &painter, int x, int y, TetrixShape shape)
+void view::drawSquare(QPainter &painter, int x, int y)
 {
-    static const QRgb colorTable[8] = {
+    /*static const QRgb colorTable[8] = {
         0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
         0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
     };
-
-    QColor color = colorTable[int(shape)];
+*/
+    //QColor color = colorTable[int(shape)];
+    QColor color =0xCC6666;
     painter.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2,
                      color);
 
