@@ -15,7 +15,7 @@ class view :public QFrame
 public:
         view() { ; }
         void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
-        virtual void paint() = 0;
+        virtual void paint();
         void gameover();
         void drawSquare(QPainter &painter, int x, int y);
         int squareWidth() { return contentsRect().width() / 10; }
