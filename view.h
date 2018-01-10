@@ -40,7 +40,7 @@ class view_1 : public view
 
 public:
         view_1();
-
+        void showNextPiece();
 private:
         QLabel *createLabel(const QString &text);
         view *board;

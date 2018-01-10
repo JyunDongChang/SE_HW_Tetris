@@ -1,6 +1,24 @@
 ﻿#include "view.h"
 #include <QtWidgets>
+void view_1::showNextPiece()
+{
+  if (!nextPieceLabel)
+            return;
+  block next = mymodel->getnextTetris();
+        QPixmap pixmap(4 * squareWidth(), 4 * squareHeight());
+        QPainter painter(&pixmap);
+        painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
 
+        for (int i = 0; i < 4; ++i) {
+           for(int j=0;j<4;++j){
+                if(next.cell[i][j])
+                    drawSquare(painter,(next.pos[0]+i) * squareWidth(),(next.pos[1]+j - 1) * squareHeight()
+                               );
+
+                }
+        }
+    nextPieceLabel->setPixmap(pixmap);
+}
 void view::paintEvent(QPaintEvent *event)
 {
     static model* temp;
