@@ -14,14 +14,14 @@ void model::setgame()
     fallSpeed = 1500;
 	inTurnChangeTime = false;
 
-	tetris = new int*[tetrisColumn];
-	for (int i = 0; i < tetrisColumn; i++)
-		tetris[i] = new int[tetrisRow];
+	tetris = new int*[tetrisRow];
+	for (int i = 0; i < tetrisRow; i++)
+		tetris[i] = new int[tetrisColumn];
 	//初始化遊戲設定
 	//EX:設定初始掉落速度，開始mainloop之類的
 
-	for (int i = 0; i < tetrisColumn; i++)
-		for (int j = 0; j < tetrisRow; j++)
+	for (int i = 0; i < tetrisRow; i++)
+		for (int j = 0; j < tetrisColumn; j++)
 			tetris[i][j] = 0;
     setoriginalshape();
 	//設置block
@@ -181,7 +181,7 @@ void model::checkline()
 	for (int i = 0; i < tetrisColumn; i++) {
 		checkReg = true;
 		for (int j = 0; j < tetrisRow; j++) {
-			if (tetris[i][j] == 0)
+			if (tetris[j][i] == 0)
 			{
 				checkReg = false;
 				break;
@@ -206,7 +206,7 @@ void model::checkline()
 		{
             if (k != i) {
 				for (int j = 0; j < tetrisRow; j++) {
-					tetris[k][j] = tetris[i][j];
+					tetris[j][k] = tetris[j][i];
 				}
 			}
 			k++;
@@ -409,7 +409,7 @@ void model::setoriginalshape()
     originalshape[5][0].cell[2][0] = 6;
     originalshape[5][0].cell[1][0] = 6;
     originalshape[5][0].cell[1][1] = 6;
-    originalshape[5][0].cell[0][2] = 6;
+    originalshape[5][0].cell[0][1] = 6;
     originalshape[5][0].type = 6;
 	originalshape[5][0].rotate = 0;
 
@@ -421,7 +421,7 @@ void model::setoriginalshape()
     originalshape[5][2].cell[2][0] = 6;
     originalshape[5][2].cell[1][0] = 6;
     originalshape[5][2].cell[1][1] = 6;
-    originalshape[5][2].cell[0][2] = 6;
+    originalshape[5][2].cell[0][1] = 6;
 
     originalshape[5][3].cell[0][0] = 6;
     originalshape[5][3].cell[0][1] = 6;
@@ -434,7 +434,7 @@ void model::setoriginalshape()
     originalshape[6][0].cell[0][0] = 7;
     originalshape[6][0].cell[1][0] = 7;
     originalshape[6][0].cell[1][1] = 7;
-    originalshape[6][0].cell[2][0] = 7;
+    originalshape[6][0].cell[2][1] = 7;
     originalshape[6][0].type = 7;
 	originalshape[6][0].rotate = 0;
 
@@ -446,7 +446,7 @@ void model::setoriginalshape()
     originalshape[6][2].cell[0][0] = 7;
     originalshape[6][2].cell[1][0] = 7;
     originalshape[6][2].cell[1][1] = 7;
-    originalshape[6][2].cell[2][0] = 7;
+    originalshape[6][2].cell[2][1] = 7;
 
     originalshape[6][3].cell[1][0] = 7;
     originalshape[6][3].cell[1][1] = 7;
