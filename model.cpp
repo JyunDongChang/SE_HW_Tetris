@@ -29,7 +29,7 @@ void model::setgame()
 	//paintintetris();
 	nextblock = createnewpeace();
 	//設定完後就讓view把遊戲畫面畫出來
-    //myview->paint();
+    myview->Tetrisrepaint();
 	//啟動timer
     this->timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(mainloop()));
@@ -58,7 +58,7 @@ void model::tetris_move(int direction)
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
 
 		//做完後
-        //myview->paint();
+        myview->Tetrisrepaint();
 	}
 }
 
@@ -91,7 +91,7 @@ void model::tetris_rotate(int direction)
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
 
 		//做完後
-        //myview->paint();
+        myview->Tetrisrepaint();
 	}
 }
 
@@ -104,7 +104,7 @@ void model::tetris_storage()
 
 		checkfloar();
 		//做完後
-        //myview->paint();
+        myview->Tetrisrepaint();
 	}
 }
 
@@ -134,7 +134,7 @@ void model::tetris_fall()
 		nextblock = createnewpeace();
 		checkfloar();
 
-        //myview->paint();
+        myview->Tetrisrepaint();
 		timer->start();
 		inTurnChangeTime = false;
 	}
@@ -162,7 +162,7 @@ void model::mainloop()
 			checkfloar();
 		}
 
-        //myview->paint();
+        myview->Tetrisrepaint();
 		inTurnChangeTime = false;
 	}
 	//每秒執行，調降myblock
@@ -218,7 +218,7 @@ void model::checkline()
 	//timer->changeInterval(msec);
 
 	//檢查完就重新畫
-	//myview->paint();
+    myview->Tetrisrepaint();
 }
 
 void model::checkfloar()

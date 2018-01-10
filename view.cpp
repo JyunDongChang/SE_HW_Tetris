@@ -29,13 +29,13 @@ void view::paintEvent(QPaintEvent *event)
     int ** tetrisBoard= mymodel->gettetris();
     int boardTop = rect.bottom() - tetrisColumn*squareHeight();
 
-    for (int i = 0; i < tetrisColumn; ++i) {
-        for (int j = 0; j < tetrisRow; ++j) {
+    for (int i = 0; i <tetrisRow ; ++i) {
+        for (int j = 0; j <tetrisColumn ; ++j) {
             //TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
             printf("test\n");
             if (tetrisBoard[i][j])
-                drawSquare(painter, rect.left() + j * squareWidth(),
-                           boardTop + i * squareHeight());
+                drawSquare(painter, rect.left() + i * squareWidth(),
+                           boardTop + j * squareHeight());
             printf("Error\n");
         }
     }
@@ -45,7 +45,7 @@ void view::paintEvent(QPaintEvent *event)
        for(int j=0;j<4;++j){
             if(curPiece.cell[i][j])
                 drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
-                       boardTop + (tetrisColumn - curPiece.pos[1]+j - 1) * squareHeight());
+                       boardTop + (curPiece.pos[1]+j - 1) * squareHeight());
             }
     }
 
@@ -65,7 +65,7 @@ void view::keyPressEvent(QKeyEvent *event)
 		mymodel->tetris_fall();
 		break;
 	case Qt::Key_Up:
-        mymodel->tetris_rotate(right_move);
+        mymodel->tetris_rotate(right_rotate);
 		break;
 	case Qt::Key_Space:
 		break;
@@ -128,11 +128,10 @@ void view::gameover()
 	//在正中間畫個"Game Over"的text
 	//當然願意去弄貼圖是最好的
 }
-/*void view::repaint()
+void view::Tetrisrepaint()
 {
-	//拿資料然後重畫
-	//可能和init類似
-}*/
+    repaint();
+}
 view_1::view_1()
 {
     board = new view;
@@ -146,8 +145,8 @@ view_1::view_1()
 	scoreLcd->setSegmentStyle(QLCDNumber::Filled);
 	levelLcd = new QLCDNumber(2);
 	levelLcd->setSegmentStyle(QLCDNumber::Filled);
-    //linesLcd = new QLCDNumber(5);
-    //linesLcd->setSegmentStyle(QLCDNumber::Filled);
+    linesLcd = new QLCDNumber(5);
+    linesLcd->setSegmentStyle(QLCDNumber::Filled);
 
 	startButton = new QPushButton(tr("&Start"));
 	startButton->setFocusPolicy(Qt::NoFocus);
@@ -162,22 +161,22 @@ view_1::view_1()
     connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
 	QGridLayout *layout = new QGridLayout;
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+    layout->addWidget(createLabel(tr("NEXT")), 0, 0);
 	layout->addWidget(nextPieceLabel, 1, 0);
 	layout->addWidget(startButton, 4, 0);
     layout->addWidget(board, 0, 1, 6, 1);
-	layout->addWidget(createLabel(tr("SCORE")), 0, 2);
-	layout->addWidget(scoreLcd, 1, 2);
+    layout->addWidget(createLabel(tr("SCORE")), 0, 2);
+    layout->addWidget(scoreLcd, 1, 2);
     //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
     //layout->addWidget(linesLcd, 3, 2);
 	layout->addWidget(quitButton, 4, 2);
-	layout->addWidget(pauseButton, 5, 2);
+    layout->addWidget(pauseButton, 5, 2);
 	setLayout(layout);
 
 	setWindowTitle(tr("Tetrix"));
 	resize(550, 370);
 
-	//依據Model的資料畫出來遊戲畫面
+    //依據Model的資料畫出來遊戲畫面
 	//可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
 	//然後這邊就傳入不同的參數就可以變更了
 	//當然我還沒看qt，不清楚這現實不現實
