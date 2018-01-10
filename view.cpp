@@ -36,7 +36,7 @@ void view::paintEvent(QPaintEvent *event)
             if (tetrisBoard[i][j])
                 drawSquare(painter, rect.left() + i * squareWidth(),
                            boardTop + j * squareHeight());
-            printf("Error\n");
+           // printf("Error\n");
         }
     }
 
