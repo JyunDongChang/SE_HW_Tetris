@@ -162,26 +162,24 @@ view_1::view_1()
 
 	QGridLayout *layout = new QGridLayout;
     layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(nextPieceLabel, 1, 0);
+    layout->addWidget(nextPieceLabel, 1, 0);
 	layout->addWidget(startButton, 4, 0);
     layout->addWidget(board, 0, 1, 6, 1);
-    layout->addWidget(createLabel(tr("SCORE")), 0, 2);
-    layout->addWidget(scoreLcd, 1, 2);
+    layout->addWidget(createLabel(tr("SCORE")), 2, 0);
+    layout->addWidget(scoreLcd, 3, 0);
     //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
     //layout->addWidget(linesLcd, 3, 2);
-	layout->addWidget(quitButton, 4, 2);
-    layout->addWidget(pauseButton, 5, 2);
+    layout->addWidget(quitButton, 5, 0);
+    layout->addWidget(pauseButton, 6, 0);
 	setLayout(layout);
 
 	setWindowTitle(tr("Tetrix"));
 	resize(550, 370);
-
     //依據Model的資料畫出來遊戲畫面
 	//可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
 	//然後這邊就傳入不同的參數就可以變更了
 	//當然我還沒看qt，不清楚這現實不現實
 }
-
 QLabel *view_1::createLabel(const QString &text)
 {
 	QLabel *lbl = new QLabel(text);
