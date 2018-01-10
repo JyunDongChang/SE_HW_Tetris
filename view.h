@@ -19,7 +19,7 @@ public:
         void Tetrisrepaint(model* newModel);
         void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
         void gameover();
-        void drawSquare(QPainter &painter, int x, int y);
+        void drawSquare(QPainter &painter, int x, int y,int shapeIndex);
         int squareWidth() { return contentsRect().width() / 10; }
         int squareHeight() { return contentsRect().height() / 20; }
 

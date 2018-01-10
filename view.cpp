@@ -13,7 +13,7 @@ void view_1::showNextPiece()
            for(int j=0;j<4;++j){
                 if(next.cell[i][j])
                     drawSquare(painter,(next.pos[0]+i) * squareWidth(),(next.pos[1]+j - 1) * squareHeight()
-                               );
+                               ,next.cell[i][j]);
 
                 }
         }
@@ -53,7 +53,7 @@ void view::paintEvent(QPaintEvent *event)
             //printf("test\n");
             if (tetrisBoard[i][j])
                 drawSquare(painter, rect.left() + i * squareWidth(),
-                           boardTop + j * squareHeight());
+                           boardTop + j * squareHeight(),tetrisBoard[i][j]);
            // printf("Error\n");
         }
     }
@@ -63,7 +63,7 @@ void view::paintEvent(QPaintEvent *event)
        for(int j=0;j<4;++j){
             if(curPiece.cell[i][j])
                 drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
-                       boardTop + (curPiece.pos[1]+j - 1) * squareHeight());
+                       boardTop + (curPiece.pos[1]+j - 1) * squareHeight(),curPiece.cell[i][j]);
             }
     }
 
@@ -119,15 +119,15 @@ void view::keyPressEvent(QKeyEvent *event)
 	}
 	*/
 }
-void view::drawSquare(QPainter &painter, int x, int y)
+void view::drawSquare(QPainter &painter, int x, int y,int shapeIndex)
 {
-    /*static const QRgb colorTable[8] = {
+    static const QRgb colorTable[8] = {
         0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
         0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
     };
-*/
-    //QColor color = colorTable[int(shape)];
-    QColor color =0xCC6666;
+
+    QColor color = colorTable[shapeIndex];
+    //QColor color =0xCC6666;
     painter.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2,
                      color);
 
