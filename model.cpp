@@ -23,7 +23,7 @@ void model::setgame()
 	for (int i = 0; i < tetrisColumn; i++)
 		for (int j = 0; j < tetrisRow; j++)
 			tetris[i][j] = 0;
-
+    setoriginalshape();
 	//設置block
 	myblock = createnewpeace();
 	//paintintetris();
@@ -282,7 +282,7 @@ void model::setoriginalshape()
     originalshape[0][0].cell[2][1] = 1;
     originalshape[0][0].cell[2][2] = 1;
     originalshape[0][0].cell[2][3] = 1;
-	originalshape[0][0].type = 0;
+    originalshape[0][0].type = 1;
 	originalshape[0][0].rotate = 0;
 
     originalshape[0][1].cell[0][2] = 1;
@@ -308,7 +308,7 @@ void model::setoriginalshape()
     originalshape[1][0].cell[1][0] = 2;
     originalshape[1][0].cell[0][1] = 2;
     originalshape[1][0].cell[1][1] = 2;
-	originalshape[1][0].type = 1;
+    originalshape[1][0].type = 2;
 	originalshape[1][0].rotate = 0;
 
     originalshape[1][1].cell[0][0] = 2;
@@ -334,7 +334,7 @@ void model::setoriginalshape()
     originalshape[2][0].cell[1][0] = 3;
     originalshape[2][0].cell[2][0] = 3;
     originalshape[2][0].cell[1][1] = 3;
-	originalshape[2][0].type = 2;
+    originalshape[2][0].type = 3;
 	originalshape[2][0].rotate = 0;
 
     originalshape[2][1].cell[0][1] = 3;
@@ -360,7 +360,7 @@ void model::setoriginalshape()
     originalshape[3][0].cell[1][0] = 4;
     originalshape[3][0].cell[2][0] = 4;
     originalshape[3][0].cell[0][1] = 4;
-	originalshape[3][0].type = 3;
+    originalshape[3][0].type = 4;
 	originalshape[3][0].rotate = 0;
 
     originalshape[3][1].cell[2][0] = 4;
@@ -385,7 +385,7 @@ void model::setoriginalshape()
     originalshape[4][0].cell[1][0] = 5;
     originalshape[4][0].cell[2][0] = 5;
     originalshape[4][0].cell[2][1] = 5;
-	originalshape[4][0].type = 4;
+    originalshape[4][0].type = 5;
 	originalshape[4][0].rotate = 0;
 
     originalshape[4][1].cell[2][0] = 5;
@@ -410,7 +410,7 @@ void model::setoriginalshape()
     originalshape[5][0].cell[1][0] = 6;
     originalshape[5][0].cell[1][1] = 6;
     originalshape[5][0].cell[0][2] = 6;
-	originalshape[5][0].type = 5;
+    originalshape[5][0].type = 6;
 	originalshape[5][0].rotate = 0;
 
     originalshape[5][1].cell[0][0] = 6;
@@ -435,7 +435,7 @@ void model::setoriginalshape()
     originalshape[6][0].cell[1][0] = 7;
     originalshape[6][0].cell[1][1] = 7;
     originalshape[6][0].cell[2][0] = 7;
-	originalshape[6][0].type = 6;
+    originalshape[6][0].type = 7;
 	originalshape[6][0].rotate = 0;
 
     originalshape[6][1].cell[1][0] = 7;
@@ -477,7 +477,7 @@ block model::copyablock(block input)
 
 block model::copyrotateblock()
 {
-	block temp = copyablock(originalshape[myblock.type][myblock.rotate]);
+    block temp = copyablock(originalshape[myblock.type-1][myblock.rotate]);
     temp.pos[0] = myblock.pos[0];
     temp.pos[1] = myblock.pos[1];
 	return temp;
