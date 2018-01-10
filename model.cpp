@@ -192,16 +192,17 @@ void model::checkline()
 			isFull[i] = true;
 			score += level;
 			level++;
+
 		}
 	}
-
+     printf("%d\n",level);
 	if (level / 5 > 0)
 	{
         fallSpeed -= (level/5)*10;
 	}
 
-	int k = 0;
-	for (int i = 0; i < tetrisColumn; i++) {
+    int k = tetrisColumn-1;
+    for (int i = tetrisColumn-1; i >= 0; i--) {
 		if (!isFull[i])
 		{
             if (k != i) {
@@ -209,7 +210,7 @@ void model::checkline()
 					tetris[j][k] = tetris[j][i];
 				}
 			}
-			k++;
+            k--;
 		}
 	}
 	//檢查有沒有東西能消，有就加分
