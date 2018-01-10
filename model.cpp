@@ -142,7 +142,7 @@ void model::tetris_fall()
 }
 
 void model::mainloop()
-{score++;
+{//score++;
 	block temp;
 	if (!inTurnChangeTime) {
 		inTurnChangeTime = true;
@@ -275,7 +275,7 @@ void model::setoriginalshape()
 
 
 	//直條
-    originalshape[0][0].pos[0] = 3;
+    originalshape[0][0].pos[0] = 2;
     originalshape[0][0].pos[1] = 0;
 
     originalshape[0][0].cell[2][0] = 1;
@@ -301,7 +301,7 @@ void model::setoriginalshape()
     originalshape[0][3].cell[3][2] = 1;
 
 	//方塊
-    originalshape[1][0].pos[0] = 5;
+    originalshape[1][0].pos[0] = 4;
     originalshape[1][0].pos[1] = 0;
 
     originalshape[1][0].cell[0][0] = 2;
@@ -327,7 +327,7 @@ void model::setoriginalshape()
     originalshape[1][3].cell[1][1] = 2;
 
 	//T型
-    originalshape[2][0].pos[0] = 4;
+    originalshape[2][0].pos[0] = 3;
     originalshape[2][0].pos[1] = 0;
 
     originalshape[2][0].cell[0][0] = 3;
@@ -353,7 +353,7 @@ void model::setoriginalshape()
     originalshape[2][3].cell[1][1] = 3;
 
 	//正L
-    originalshape[3][0].pos[0] = 5;
+    originalshape[3][0].pos[0] = 4;
     originalshape[3][0].pos[1] = 0;
 
     originalshape[3][0].cell[0][0] = 4;
@@ -378,7 +378,7 @@ void model::setoriginalshape()
     originalshape[3][3].cell[0][2] = 4;
     originalshape[3][3].cell[1][2] = 4;
 	//逆L
-    originalshape[4][0].pos[0] = 4;
+    originalshape[4][0].pos[0] = 3;
     originalshape[4][0].pos[1] = 0;
 
     originalshape[4][0].cell[0][0] = 5;
@@ -403,7 +403,7 @@ void model::setoriginalshape()
     originalshape[4][3].cell[0][2] = 5;
     originalshape[4][3].cell[1][0] = 5;
 	//正S
-    originalshape[5][0].pos[0] = 4;
+    originalshape[5][0].pos[0] = 3;
     originalshape[5][0].pos[1] = 0;
 
     originalshape[5][0].cell[2][0] = 6;
@@ -428,7 +428,7 @@ void model::setoriginalshape()
     originalshape[5][3].cell[1][1] = 6;
     originalshape[5][3].cell[1][2] = 6;
 	//Z
-    originalshape[6][0].pos[0] = 4;
+    originalshape[6][0].pos[0] = 3;
     originalshape[6][0].pos[1] = 0;
 
     originalshape[6][0].cell[0][0] = 7;
@@ -480,5 +480,7 @@ block model::copyrotateblock()
     block temp = copyablock(originalshape[myblock.type-1][myblock.rotate]);
     temp.pos[0] = myblock.pos[0];
     temp.pos[1] = myblock.pos[1];
+    temp.type = myblock.type;
+    temp.rotate = myblock.rotate;
 	return temp;
 }
