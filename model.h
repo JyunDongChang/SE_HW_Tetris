@@ -54,6 +54,7 @@ public:
 	block getnextTetris() { return nextblock; }
 	block getstorageTetris() { return storageblock; }
 	block getTetris() { return myblock; }
+    int gettest(){return test;}
 public slots:
     void mainloop();
 
@@ -84,4 +85,5 @@ private:
 	block storageblock;
     block originalshape[7][4];
     QTimer *timer;
+    int test=5;
 };

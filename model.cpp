@@ -142,7 +142,7 @@ void model::tetris_fall()
 }
 
 void model::mainloop()
-{
+{score++;
 	block temp;
 	if (!inTurnChangeTime) {
 		inTurnChangeTime = true;

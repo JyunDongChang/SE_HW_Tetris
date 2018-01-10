@@ -3,8 +3,18 @@
 
 void view::paintEvent(QPaintEvent *event)
 {
-   emit scoreChanged(10);//預計要寫mymodel->getscore()
- /*
+    static model* temp;
+    if(temp)
+    {
+       mymodel=temp;
+       emit scoreChanged(temp->getscore());//預計要寫mymodel->getscore()
+    }
+    else
+    {
+       temp=mymodel;
+       emit scoreChanged(mymodel->getscore());//預計要寫mymodel->getscore()
+    }
+
     QFrame::paintEvent(event);
     QPainter painter(this);
     QRect rect = contentsRect();
@@ -38,7 +48,7 @@ void view::paintEvent(QPaintEvent *event)
                        boardTop + (tetrisColumn - curPiece.pos[1]+j - 1) * squareHeight());
             }
     }
-*/
+
 }
 void view::keyPressEvent(QKeyEvent *event)
 {

@@ -17,5 +17,6 @@ controller::~controller()
 int controller::startgame()
 {
 	mymodel->setgame();
+    myview->show();
 	return 0;
 }
