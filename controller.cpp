@@ -16,8 +16,6 @@ controller::~controller()
 
 int controller::startgame()
 {
-    //view_1 myUI;
-    //myUI.show();
 	mymodel->setgame();
 	return 0;
 }

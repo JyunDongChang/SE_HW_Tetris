@@ -1,37 +1,36 @@
-#include "model.h"
+ï»¿#include "model.h"
 #include <QObject>
 #include <QTimer>
 #include <QTime>
 
 void model::setgame()
 {
-	//ªì©l¤Æ°Ñ¼Æ
+	//åˆå§‹åŒ–åƒæ•¸
     QTime t;
     t= QTime::currentTime();
     qsrand(t.msec()+t.second()*1000);
 
-	level = score = 0;
+    level = score = 0;
     fallSpeed = 1500;
 	inTurnChangeTime = false;
 
 	tetris = new int*[tetrisColumn];
 	for (int i = 0; i < tetrisColumn; i++)
 		tetris[i] = new int[tetrisRow];
-	//ªì©l¤Æ¹CÀ¸³]©w
-	//EX:³]©wªì©l±¼¸¨³t«×¡A¶}©lmainloop¤§Ãşªº
+	//åˆå§‹åŒ–éŠæˆ²è¨­å®š
+	//EX:è¨­å®šåˆå§‹æ‰è½é€Ÿåº¦ï¼Œé–‹å§‹mainloopä¹‹é¡çš„
 
 	for (int i = 0; i < tetrisColumn; i++)
 		for (int j = 0; j < tetrisRow; j++)
 			tetris[i][j] = 0;
 
-	//³]¸mblock
+	//è¨­ç½®block
 	myblock = createnewpeace();
 	//paintintetris();
 	nextblock = createnewpeace();
-
-	//³]©w§¹«á´NÅıview§â¹CÀ¸µe­±µe¥X¨Ó
-	myview->paint();
-	//±Ò°Êtimer
+	//è¨­å®šå®Œå¾Œå°±è®“viewæŠŠéŠæˆ²ç•«é¢ç•«å‡ºä¾†
+    //myview->paint();
+	//å•Ÿå‹•timer
     this->timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(mainloop()));
 	timer->start(fallSpeed);
@@ -54,12 +53,12 @@ void model::tetris_move(int direction)
 		{
 			myblock = copyablock(temp);
 		}
-		//®Ú¾Ú«ü¥O¥h§ó°Ênextªºpos
-		//ª`·Ntetris¤¤­ì¥»´N¦³ªF¦èªº¦a¤è
-		//­Y¤w¸gµLªk¦A¤U¼Y«h§ânextblockµ¹myblock  //¶·¦A°Q½×
+		//æ ¹æ“šæŒ‡ä»¤å»æ›´å‹•nextçš„pos
+		//æ³¨æ„tetrisä¸­åŸæœ¬å°±æœ‰æ±è¥¿çš„åœ°æ–¹
+		//è‹¥å·²ç¶“ç„¡æ³•å†ä¸‹å¢œå‰‡æŠŠnextblockçµ¦myblock  //é ˆå†è¨è«–
 
-		//°µ§¹«á
-		myview->paint();
+		//åšå®Œå¾Œ
+        //myview->paint();
 	}
 }
 
@@ -87,12 +86,12 @@ void model::tetris_rotate(int direction)
 		{
 			myblock = copyablock(temp);
 		}
-		//®Ú¾Ú«ü¥O¥h§ó°Ênextªºpos
-		//ª`·Ntetris¤¤­ì¥»´N¦³ªF¦èªº¦a¤è
-		//­Y¤w¸gµLªk¦A¤U¼Y«h§ânextblockµ¹myblock  //¶·¦A°Q½×
+		//æ ¹æ“šæŒ‡ä»¤å»æ›´å‹•nextçš„pos
+		//æ³¨æ„tetrisä¸­åŸæœ¬å°±æœ‰æ±è¥¿çš„åœ°æ–¹
+		//è‹¥å·²ç¶“ç„¡æ³•å†ä¸‹å¢œå‰‡æŠŠnextblockçµ¦myblock  //é ˆå†è¨è«–
 
-		//°µ§¹«á
-		myview->paint();
+		//åšå®Œå¾Œ
+        //myview->paint();
 	}
 }
 
@@ -104,8 +103,8 @@ void model::tetris_storage()
 		storageblock = copyablock(temp);
 
 		checkfloar();
-		//°µ§¹«á
-		myview->paint();
+		//åšå®Œå¾Œ
+        //myview->paint();
 	}
 }
 
@@ -135,11 +134,11 @@ void model::tetris_fall()
 		nextblock = createnewpeace();
 		checkfloar();
 
-		myview->paint();
+        //myview->paint();
 		timer->start();
 		inTurnChangeTime = false;
 	}
-	//¦Pmove
+	//åŒmove
 }
 
 void model::mainloop()
@@ -163,18 +162,18 @@ void model::mainloop()
 			checkfloar();
 		}
 
-		myview->paint();
+        //myview->paint();
 		inTurnChangeTime = false;
 	}
-	//¨C¬í°õ¦æ¡A½Õ­°myblock
-	//QObjectÃş´£¨Ñ®É´Áªº¥\¯à¡C»P©w®É¬ÛÃöªº¨ç¥Ü¦³:startTimer()¡BtimeEvent()¡BkillTimer()
-	//°µ§¹«á¤@¼Ë
+	//æ¯ç§’åŸ·è¡Œï¼Œèª¿é™myblock
+	//QObjecté¡æä¾›æ™‚æœŸçš„åŠŸèƒ½ã€‚èˆ‡å®šæ™‚ç›¸é—œçš„å‡½ç¤ºæœ‰:startTimer()ã€timeEvent()ã€killTimer()
+	//åšå®Œå¾Œä¸€æ¨£
 
-	//µM«á¦A¥h½T»{
+	//ç„¶å¾Œå†å»ç¢ºèª
 
 
 }
-//¥¼§¹¦¨
+//æœªå®Œæˆ
 void model::checkline()
 {
 	bool checkReg;
@@ -213,27 +212,27 @@ void model::checkline()
 			k++;
 		}
 	}
-	//ÀË¬d¦³¨S¦³ªF¦è¯à®ø¡A¦³´N¥[¤À
+	//æª¢æŸ¥æœ‰æ²’æœ‰æ±è¥¿èƒ½æ¶ˆï¼Œæœ‰å°±åŠ åˆ†
 	//score++;
-	//§ó§ïspeed¥Î
+	//æ›´æ”¹speedç”¨
 	//timer->changeInterval(msec);
 
-	//ÀË¬d§¹´N­«·sµe
+	//æª¢æŸ¥å®Œå°±é‡æ–°ç•«
 	//myview->paint();
 }
 
 void model::checkfloar()
 {
 	bool continueGame = checkintetris(myblock);
-	//ÀË¬dtetris[]¬O¤£¬O¼²¤W¤ÑªáªO¤F
+	//æª¢æŸ¥tetris[]æ˜¯ä¸æ˜¯æ’ä¸Šå¤©èŠ±æ¿äº†
 	if (!continueGame)
 	{
 		timer->stop();
 		inTurnChangeTime = true;
-		//Ãö±¼timer
+		//é—œæ‰timer
 		//endgame
-		//¸Óstop­nstop
-		//tetris°O±odelete
+		//è©²stopè¦stop
+		//tetrisè¨˜å¾—delete
 	}
 }
 
@@ -245,10 +244,10 @@ bool model::checkintetris(block input)
 		{
             if (input.cell[i][j] > 0)
 			{
-				//¬O§_¶W¬É
+				//æ˜¯å¦è¶…ç•Œ
                 if (input.pos[0] + i < 0 || input.pos[0] + i >= tetrisRow || input.pos[1] + j < 0 || input.pos[1] + j >= tetrisColumn)
 					return false;
-				//¬O§_­«Å|
+				//æ˜¯å¦é‡ç–Š
                 if (tetris[input.pos[0] + i][input.pos[1] + j] > 0)
 					return false;
 			}
@@ -275,7 +274,7 @@ void model::setoriginalshape()
 {
 
 
-	//ª½±ø
+	//ç›´æ¢
     originalshape[0][0].pos[0] = 3;
     originalshape[0][0].pos[1] = 0;
 
@@ -301,7 +300,7 @@ void model::setoriginalshape()
     originalshape[0][3].cell[2][2] = 1;
     originalshape[0][3].cell[3][2] = 1;
 
-	//¤è¶ô
+	//æ–¹å¡Š
     originalshape[1][0].pos[0] = 5;
     originalshape[1][0].pos[1] = 0;
 
@@ -327,7 +326,7 @@ void model::setoriginalshape()
     originalshape[1][3].cell[0][1] = 2;
     originalshape[1][3].cell[1][1] = 2;
 
-	//T«¬
+	//Tå‹
     originalshape[2][0].pos[0] = 4;
     originalshape[2][0].pos[1] = 0;
 
@@ -353,7 +352,7 @@ void model::setoriginalshape()
     originalshape[2][3].cell[0][2] = 3;
     originalshape[2][3].cell[1][1] = 3;
 
-	//¥¿L
+	//æ­£L
     originalshape[3][0].pos[0] = 5;
     originalshape[3][0].pos[1] = 0;
 
@@ -378,7 +377,7 @@ void model::setoriginalshape()
     originalshape[3][3].cell[0][1] = 4;
     originalshape[3][3].cell[0][2] = 4;
     originalshape[3][3].cell[1][2] = 4;
-	//°fL
+	//é€†L
     originalshape[4][0].pos[0] = 4;
     originalshape[4][0].pos[1] = 0;
 
@@ -403,7 +402,7 @@ void model::setoriginalshape()
     originalshape[4][3].cell[0][1] = 5;
     originalshape[4][3].cell[0][2] = 5;
     originalshape[4][3].cell[1][0] = 5;
-	//¥¿S
+	//æ­£S
     originalshape[5][0].pos[0] = 4;
     originalshape[5][0].pos[1] = 0;
 
@@ -457,7 +456,7 @@ void model::setoriginalshape()
 
 block model::createnewpeace()
 {
-    int n = qrand()%8;
+    int n = qrand()%7;
 	block temp = copyablock(originalshape[n][0]);
 	return temp;
 }

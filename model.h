@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "controller.h"
 #include "view.h"
 #include <QObject>
@@ -16,31 +16,32 @@ class view;
 #define tetrisStorage 5
 struct block
 {
-    int pos[2] = {0};//²{¦b³o­Óblock¹ïÀ³¨ì¾ã­Óµe­±ªº®y¼Ğ¡A¥H¥ª¤W¬°°ò·Ç¥h­pºâ
-    int cell[4][4] = {{0},{0}};//§ï¦¨4*4
+    int pos[2] = {0};//ç¾åœ¨é€™å€‹blockå°æ‡‰åˆ°æ•´å€‹ç•«é¢çš„åº§æ¨™ï¼Œä»¥å·¦ä¸Šç‚ºåŸºæº–å»è¨ˆç®—
+    int cell[4][4] = {{0},{0}};//æ”¹æˆ4*4
 	int type, rotate;
 };
 //  ____ ____ ____
 // |pos | 1  | 2  |
-//  ¡Ğ¡Ğ ¡Ğ¡Ğ ¡Ğ¡Ğ
+//  ï¼ï¼ ï¼ï¼ ï¼ï¼
 // | 3  | 4  | 5  |
-//  ¡Ğ¡Ğ ¡Ğ¡Ğ ¡Ğ¡Ğ
+//  ï¼ï¼ ï¼ï¼ ï¼ï¼
 // | 6  | 7  | 8  |
-//  ¡Ğ¡Ğ ¡Ğ¡Ğ ¡Ğ¡Ğ
-// ¤Q¦rªº¸Ü³o¼Ë
+//  ï¼ï¼ ï¼ï¼ ï¼ï¼
+// åå­—çš„è©±é€™æ¨£
 //  ____ ____ ____
 // |    |true|    |
-//  ¡Ğ¡Ğ ¡Ğ¡Ğ ¡Ğ¡Ğ
+//  ï¼ï¼ ï¼ï¼ ï¼ï¼
 // |true|true|true|
-//  ¡Ğ¡Ğ ¡Ğ¡Ğ ¡Ğ¡Ğ
+//  ï¼ï¼ ï¼ï¼ ï¼ï¼
 // |    |true|    |
-//  ¡Ğ¡Ğ ¡Ğ¡Ğ ¡Ğ¡Ğ
-// ¥H«á¥i¥H§ï©ñ¨ä¥L¼Æ¦r¡A¨Ó°Ï¤ÀÃC¦â
-// ²{¦b¥ı¥Îbool°Ï¤À¦³¨S¦³´N¦n
+//  ï¼ï¼ ï¼ï¼ ï¼ï¼
+// ä»¥å¾Œå¯ä»¥æ”¹æ”¾å…¶ä»–æ•¸å­—ï¼Œä¾†å€åˆ†é¡è‰²
+// ç¾åœ¨å…ˆç”¨boolå€åˆ†æœ‰æ²’æœ‰å°±å¥½
 class model : public QObject
 {
+    Q_OBJECT
 public:
-	model() { ; }
+    model(){;}
 	void set(view* v, controller* c) { myview = v; mycontroller = c; }
 	void setgame();
 	void tetris_move(int direction);
@@ -53,31 +54,33 @@ public:
 	block getnextTetris() { return nextblock; }
 	block getstorageTetris() { return storageblock; }
 	block getTetris() { return myblock; }
+public slots:
+    void mainloop();
+
 private:
 	view* myview;
 	controller* mycontroller;
-
 	//
-	void mainloop();
+
 	void checkline();
 	void checkfloar();
-	//±N§ó§ï«áªºblock¥á¶i¨Ó¥ı§PÂ_¬O§_·|¥X²{ 1.¶W¬É 2.­«Å|­ì©l¸ê®Æ
+	//å°‡æ›´æ”¹å¾Œçš„blockä¸Ÿé€²ä¾†å…ˆåˆ¤æ–·æ˜¯å¦æœƒå‡ºç¾ 1.è¶…ç•Œ 2.é‡ç–ŠåŸå§‹è³‡æ–™
     bool checkintetris(block input);
-	//±N½T»{¯àÃ¸»s¶i¥Dtetrisªºmyblock¶ñ¤Jtetris
+	//å°‡ç¢ºèªèƒ½ç¹ªè£½é€²ä¸»tetrisçš„myblockå¡«å…¥tetris
 	void paintintetris();
 	void setoriginalshape();
 	block createnewpeace();
     block copyablock(block input);
 	block copyrotateblock();
-	//¨C¤@­Ó¾î±Æ¦³10­Ó
-	//Á`¦@¦³20­Ó¾î±Æ°ª
+	//æ¯ä¸€å€‹æ©«æ’æœ‰10å€‹
+	//ç¸½å…±æœ‰20å€‹æ©«æ’é«˜
 	int** tetris;
 	float level;
 	int fallSpeed;
-    int score;
+    int score=100;
 	bool inTurnChangeTime;
-	block myblock;//²{¦b®³µÛªºblock
-	block nextblock;//¤U¤@­Ó
+	block myblock;//ç¾åœ¨æ‹¿è‘—çš„block
+	block nextblock;//ä¸‹ä¸€å€‹
 	block storageblock;
     block originalshape[7][4];
     QTimer *timer;

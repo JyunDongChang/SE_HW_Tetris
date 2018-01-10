@@ -1,26 +1,32 @@
 ﻿#include "view.h"
 #include <QtWidgets>
 
-void view::paint()
+void view::paintEvent(QPaintEvent *event)
 {
+   emit scoreChanged(10);//預計要寫mymodel->getscore()
+ /*
+    QFrame::paintEvent(event);
     QPainter painter(this);
     QRect rect = contentsRect();
-/*
-    if (isPaused) {
-        painter.drawText(rect, Qt::AlignCenter, tr("Pause"));
-        return;
-    }
-*/
-    block curPiece=mymodel->getstorageTetris();
+
+//    if (isPaused) {
+//        painter.drawText(rect, Qt::AlignCenter, tr("Pause"));
+//        return;
+//    }
+
+    block curPiece=mymodel->getTetris();
+
     int ** tetrisBoard= mymodel->gettetris();
     int boardTop = rect.bottom() - tetrisColumn*squareHeight();
 
     for (int i = 0; i < tetrisColumn; ++i) {
         for (int j = 0; j < tetrisRow; ++j) {
             //TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
+            printf("test\n");
             if (tetrisBoard[i][j])
                 drawSquare(painter, rect.left() + j * squareWidth(),
                            boardTop + i * squareHeight());
+            printf("Error\n");
         }
     }
 
@@ -31,7 +37,8 @@ void view::paint()
                 drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
                        boardTop + (tetrisColumn - curPiece.pos[1]+j - 1) * squareHeight());
             }
-    }  
+    }
+*/
 }
 void view::keyPressEvent(QKeyEvent *event)
 {
@@ -142,9 +149,7 @@ view_1::view_1()
     //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
     //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
     //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
-    //connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
-
-    scoreLcd->display(mymodel->getscore());
+    connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
@@ -173,16 +178,4 @@ QLabel *view_1::createLabel(const QString &text)
 	QLabel *lbl = new QLabel(text);
 	lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	return lbl;
-}/*
-void view_1::paint()
-{
-	mymodel->getTetris();
-	mymodel->getnextTetris();
-	mymodel->getscore();
-	mymodel->gettetris();
-	//依據Model的資料畫出來遊戲畫面
-	//可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
-	//然後這邊就傳入不同的參數就可以變更了
-	//當然我還沒看qt，不清楚這現實不現實
 }
-*/
