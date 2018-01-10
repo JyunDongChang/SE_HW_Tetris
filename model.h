@@ -64,7 +64,7 @@ private:
 	//
 
 	void checkline();
-	void checkfloar();
+    bool checkfloar();
 	//將更改後的block丟進來先判斷是否會出現 1.超界 2.重疊原始資料
     bool checkintetris(block input);
 	//將確認能繪製進主tetris的myblock填入tetris
@@ -79,7 +79,7 @@ private:
 	float level;
 	int fallSpeed;
     int score=100;
-	bool inTurnChangeTime;
+    bool inTurnChangeTime = false;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個
 	block storageblock;

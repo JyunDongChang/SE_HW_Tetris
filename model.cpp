@@ -12,7 +12,7 @@ void model::setgame()
 
     level = score = 0;
     fallSpeed = 1500;
-	inTurnChangeTime = false;
+    //inTurnChangeTime = false;
 
 	tetris = new int*[tetrisRow];
 	for (int i = 0; i < tetrisRow; i++)
@@ -29,7 +29,7 @@ void model::setgame()
 	//paintintetris();
 	nextblock = createnewpeace();
 	//設定完後就讓view把遊戲畫面畫出來
-    myview->Tetrisrepaint();
+    myview->Tetrisrepaint(this);
 	//啟動timer
     this->timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(mainloop()));
@@ -58,8 +58,12 @@ void model::tetris_move(int direction)
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
 
 		//做完後
-        myview->Tetrisrepaint();
+        myview->Tetrisrepaint(this);
 	}
+    else
+    {
+        printf("GG\n");
+    }
 }
 
 void model::tetris_rotate(int direction)
@@ -91,7 +95,7 @@ void model::tetris_rotate(int direction)
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
 
 		//做完後
-        myview->Tetrisrepaint();
+        myview->Tetrisrepaint(this);
 	}
 }
 
@@ -104,14 +108,16 @@ void model::tetris_storage()
 
 		checkfloar();
 		//做完後
-        myview->Tetrisrepaint();
+        myview->Tetrisrepaint(this);
 	}
 }
 
 void model::tetris_fall()
 {
 	block temp;
+
 	if (!inTurnChangeTime) {
+        printf("can/n");
 		inTurnChangeTime = true;
 		timer->stop();
 		while (true)
@@ -132,12 +138,15 @@ void model::tetris_fall()
 		checkline();
 		myblock = copyablock(nextblock);
 		nextblock = createnewpeace();
-		checkfloar();
-
-        myview->Tetrisrepaint();
-		timer->start();
-		inTurnChangeTime = false;
+        if(!checkfloar())
+            inTurnChangeTime = false;
+        myview->Tetrisrepaint(this);
+		timer->start();        
 	}
+    else
+    {
+        printf("can't/n");
+    }
 	//同move
 }
 
@@ -151,6 +160,8 @@ void model::mainloop()
 		if (checkintetris(temp))
 		{
 			myblock = copyablock(temp);
+            myview->Tetrisrepaint(this);
+            inTurnChangeTime = false;
 		}
 		else
 		{
@@ -159,11 +170,11 @@ void model::mainloop()
 			checkline();
 			myblock = copyablock(nextblock);
 			nextblock = createnewpeace();
-			checkfloar();
-		}
+            if(!checkfloar())
+                inTurnChangeTime = false;
+            myview->Tetrisrepaint(this);
 
-        myview->Tetrisrepaint();
-		inTurnChangeTime = false;
+		}
 	}
 	//每秒執行，調降myblock
 	//QObject類提供時期的功能。與定時相關的函示有:startTimer()、timeEvent()、killTimer()
@@ -195,7 +206,7 @@ void model::checkline()
 
 		}
 	}
-     printf("%d\n",level);
+     printf("%f\n",&level);
 	if (level / 5 > 0)
 	{
         fallSpeed -= (level/5)*10;
@@ -219,10 +230,10 @@ void model::checkline()
 	//timer->changeInterval(msec);
 
 	//檢查完就重新畫
-    myview->Tetrisrepaint();
+    myview->Tetrisrepaint(this);
 }
 
-void model::checkfloar()
+bool model::checkfloar()
 {
 	bool continueGame = checkintetris(myblock);
 	//檢查tetris[]是不是撞上天花板了
@@ -234,7 +245,11 @@ void model::checkfloar()
 		//endgame
 		//該stop要stop
 		//tetris記得delete
+        if(inTurnChangeTime)
+            printf("end\n");
+        return true;
 	}
+    return false;
 }
 
 bool model::checkintetris(block input)

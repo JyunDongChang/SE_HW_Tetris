@@ -16,7 +16,7 @@ class view :public QFrame
     Q_OBJECT
 public:
         view() { ; }
-        void Tetrisrepaint();
+        void Tetrisrepaint(model* newModel);
         void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
         void gameover();
         void drawSquare(QPainter &painter, int x, int y);

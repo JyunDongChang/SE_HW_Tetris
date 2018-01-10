@@ -32,7 +32,7 @@ void view::paintEvent(QPaintEvent *event)
     for (int i = 0; i <tetrisRow ; ++i) {
         for (int j = 0; j <tetrisColumn ; ++j) {
             //TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
-            printf("test\n");
+            //printf("test\n");
             if (tetrisBoard[i][j])
                 drawSquare(painter, rect.left() + i * squareWidth(),
                            boardTop + j * squareHeight());
@@ -128,8 +128,9 @@ void view::gameover()
 	//在正中間畫個"Game Over"的text
 	//當然願意去弄貼圖是最好的
 }
-void view::Tetrisrepaint()
+void view::Tetrisrepaint(model* newModel)
 {
+    mymodel = newModel;
     repaint();
 }
 view_1::view_1()
