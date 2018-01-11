@@ -100,6 +100,7 @@ void view::keyPressEvent(QKeyEvent *event)
         mymodel->tetris_fall();
 		break;
 	case Qt::Key_D:
+        mymodel->tetris_storage();
         //oneLineDown();
 		break;
 	default:

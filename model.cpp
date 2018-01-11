@@ -103,13 +103,30 @@ void model::tetris_rotate(int direction)
 void model::tetris_storage()
 {
 	if (!inTurnChangeTime) {
-		block temp = copyablock(originalshape[myblock.type][0]);
-		myblock = copyablock(storageblock);
-		storageblock = copyablock(temp);
-        tetris_shape();
-		checkfloar();
-		//做完後
-        myview->Tetrisrepaint(this);
+        if(!isStorage)
+        {
+            isStorage = true;
+            if(!isEmptyStorage)
+            {
+                isEmptyStorage = true;
+                storageblock = copyablock(originalshape[myblock.type-1][0]);
+                myblock = copyablock(nextblock);
+                nextblock = createnewpeace();
+            }
+            else
+            {
+                block temp = copyablock(originalshape[myblock.type-1][0]);
+                myblock = copyablock(storageblock);
+                storageblock = copyablock(temp);
+            }
+            tetris_shape();
+            if(!checkfloar())
+            {
+                inTurnChangeTime = false;
+            }
+            //做完後
+            myview->Tetrisrepaint(this);
+        }
 	}
 }
 
@@ -163,7 +180,7 @@ void model::tetris_Quickfall()
             checkline();
             myblock = copyablock(nextblock);
             nextblock = createnewpeace();
-
+            isStorage = false;
         }
         if(!checkfloar())
             inTurnChangeTime = false;
@@ -200,6 +217,7 @@ void model::tetris_fall()
 		checkline();
 		myblock = copyablock(nextblock);
 		nextblock = createnewpeace();
+        isStorage = false;
         if(!checkfloar())
             inTurnChangeTime = false;
         tetris_shape();
@@ -233,6 +251,7 @@ void model::mainloop()
 			checkline();
 			myblock = copyablock(nextblock);
 			nextblock = createnewpeace();
+            isStorage = false;
             if(!checkfloar())
                 inTurnChangeTime = false;
             tetris_shape();

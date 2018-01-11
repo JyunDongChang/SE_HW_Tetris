@@ -83,6 +83,7 @@ private:
 	int fallSpeed;
     int score=100;
     bool inTurnChangeTime = false;
+    bool isStorage = false,isEmptyStorage = false;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個
     block shapeblock;
