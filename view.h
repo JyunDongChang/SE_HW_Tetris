@@ -18,7 +18,9 @@ public:
         view() { ; }
         void Tetrisrepaint(model* newModel);
         void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
+        void setNextPieceLabel(QLabel *label);
         void gameover();
+        void showNextPiece();
         void drawSquare(QPainter &painter, int x, int y,int shapeIndex);
         int squareWidth() { return contentsRect().width() / 10; }
         int squareHeight() { return contentsRect().height() / 20; }
@@ -29,6 +31,7 @@ signals:
 private:
         void keyPressEvent(QKeyEvent *event) override;
         void paintEvent(QPaintEvent *event) override;
+        QPointer<QLabel> nextPieceLabel;
 protected:
         model* mymodel;
         controller* mycontroller;
@@ -40,7 +43,6 @@ class view_1 : public view
 
 public:
         view_1();
-        void showNextPiece();
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
@@ -61,7 +63,7 @@ class view_2 : public view
 
 public:
         view_2();
-        void showNextPiece();
+        void showNext(){board->showNextPiece();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);

@@ -1,10 +1,15 @@
 ﻿#include "view.h"
 #include <QtWidgets>
-void view_1::showNextPiece()
-{/*
+void view::showNextPiece()
+{
   if (!nextPieceLabel)
+  {
+      printf("exit");
             return;
+  }
+  printf("painting");
   block next = mymodel->getnextTetris();
+         printf("%d",next.pos[0]);
         QPixmap pixmap(4 * squareWidth(), 4 * squareHeight());
         QPainter painter(&pixmap);
         painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
@@ -12,12 +17,16 @@ void view_1::showNextPiece()
         for (int i = 0; i < 4; ++i) {
            for(int j=0;j<4;++j){
                 if(next.cell[i][j])
-                    drawSquare(painter,(next.pos[0]+i) * squareWidth(),(next.pos[1]+j - 1) * squareHeight()
+                    drawSquare(painter,(i) * squareWidth(),(j) * squareHeight()
                                ,next.cell[i][j]);
 
                 }
         }
-    nextPieceLabel->setPixmap(pixmap);*/
+    nextPieceLabel->setPixmap(pixmap);
+}
+void view::setNextPieceLabel(QLabel *label)
+{
+    nextPieceLabel = label;
 }
 void view::paintEvent(QPaintEvent *event)
 {
@@ -169,7 +178,7 @@ view_1::view_1()
 	nextPieceLabel = new QLabel;
 	nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
 	nextPieceLabel->setAlignment(Qt::AlignCenter);
-    //board->setNextPieceLabel(nextPieceLabel);
+    board->setNextPieceLabel(nextPieceLabel);
 
 	scoreLcd = new QLCDNumber(5);
 	scoreLcd->setSegmentStyle(QLCDNumber::Filled);
@@ -224,7 +233,7 @@ view_2::view_2()
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
-    //board->setNextPieceLabel(nextPieceLabel);
+    board->setNextPieceLabel(nextPieceLabel);
 
     scoreLcd = new QLCDNumber(5);
     scoreLcd->setSegmentStyle(QLCDNumber::Filled);

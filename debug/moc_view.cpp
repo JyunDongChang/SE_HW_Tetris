@@ -192,5 +192,269 @@ int view_1::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = view::qt_metacall(_c, _id, _a);
     return _id;
 }
+struct qt_meta_stringdata_view_2_t {
+    QByteArrayData data[1];
+    char stringdata0[7];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_view_2_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_view_2_t qt_meta_stringdata_view_2 = {
+    {
+QT_MOC_LITERAL(0, 0, 6) // "view_2"
+
+    },
+    "view_2"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_view_2[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void view_2::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+const QMetaObject view_2::staticMetaObject = {
+    { &view::staticMetaObject, qt_meta_stringdata_view_2.data,
+      qt_meta_data_view_2,  qt_static_metacall, nullptr, nullptr}
+};
+
+
+const QMetaObject *view_2::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *view_2::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_view_2.stringdata0))
+        return static_cast<void*>(this);
+    return view::qt_metacast(_clname);
+}
+
+int view_2::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = view::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_view_3_t {
+    QByteArrayData data[1];
+    char stringdata0[7];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_view_3_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_view_3_t qt_meta_stringdata_view_3 = {
+    {
+QT_MOC_LITERAL(0, 0, 6) // "view_3"
+
+    },
+    "view_3"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_view_3[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void view_3::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+const QMetaObject view_3::staticMetaObject = {
+    { &view::staticMetaObject, qt_meta_stringdata_view_3.data,
+      qt_meta_data_view_3,  qt_static_metacall, nullptr, nullptr}
+};
+
+
+const QMetaObject *view_3::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *view_3::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_view_3.stringdata0))
+        return static_cast<void*>(this);
+    return view::qt_metacast(_clname);
+}
+
+int view_3::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = view::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_view_4_t {
+    QByteArrayData data[1];
+    char stringdata0[7];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_view_4_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_view_4_t qt_meta_stringdata_view_4 = {
+    {
+QT_MOC_LITERAL(0, 0, 6) // "view_4"
+
+    },
+    "view_4"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_view_4[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void view_4::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+const QMetaObject view_4::staticMetaObject = {
+    { &view::staticMetaObject, qt_meta_stringdata_view_4.data,
+      qt_meta_data_view_4,  qt_static_metacall, nullptr, nullptr}
+};
+
+
+const QMetaObject *view_4::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *view_4::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_view_4.stringdata0))
+        return static_cast<void*>(this);
+    return view::qt_metacast(_clname);
+}
+
+int view_4::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = view::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_view_5_t {
+    QByteArrayData data[1];
+    char stringdata0[7];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_view_5_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_view_5_t qt_meta_stringdata_view_5 = {
+    {
+QT_MOC_LITERAL(0, 0, 6) // "view_5"
+
+    },
+    "view_5"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_view_5[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void view_5::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+const QMetaObject view_5::staticMetaObject = {
+    { &view::staticMetaObject, qt_meta_stringdata_view_5.data,
+      qt_meta_data_view_5,  qt_static_metacall, nullptr, nullptr}
+};
+
+
+const QMetaObject *view_5::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *view_5::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_view_5.stringdata0))
+        return static_cast<void*>(this);
+    return view::qt_metacast(_clname);
+}
+
+int view_5::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = view::qt_metacall(_c, _id, _a);
+    return _id;
+}
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

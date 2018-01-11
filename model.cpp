@@ -557,6 +557,7 @@ block model::createnewpeace()
 {
     int n = qrand()%7;
 	block temp = copyablock(originalshape[n][0]);
+    myview->showNext();
 	return temp;
 }
 
