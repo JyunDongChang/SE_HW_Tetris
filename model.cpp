@@ -28,6 +28,7 @@ void model::setgame()
 	myblock = createnewpeace();
 	//paintintetris();
 	nextblock = createnewpeace();
+    myview->showNext();
     tetris_shape();
 	//設定完後就讓view把遊戲畫面畫出來
     myview->Tetrisrepaint(this);
@@ -112,6 +113,7 @@ void model::tetris_storage()
                 storageblock = copyablock(originalshape[myblock.type-1][0]);
                 myblock = copyablock(nextblock);
                 nextblock = createnewpeace();
+                myview->showNext();
             }
             else
             {
@@ -180,6 +182,7 @@ void model::tetris_Quickfall()
             checkline();
             myblock = copyablock(nextblock);
             nextblock = createnewpeace();
+            myview->showNext();
             isStorage = false;
         }
         if(!checkfloar())
@@ -217,6 +220,7 @@ void model::tetris_fall()
 		checkline();
 		myblock = copyablock(nextblock);
 		nextblock = createnewpeace();
+        myview->showNext();
         isStorage = false;
         if(!checkfloar())
             inTurnChangeTime = false;
@@ -251,6 +255,7 @@ void model::mainloop()
 			checkline();
 			myblock = copyablock(nextblock);
 			nextblock = createnewpeace();
+            myview->showNext();
             isStorage = false;
             if(!checkfloar())
                 inTurnChangeTime = false;
@@ -557,7 +562,6 @@ block model::createnewpeace()
 {
     int n = qrand()%7;
 	block temp = copyablock(originalshape[n][0]);
-    myview->showNext();
 	return temp;
 }
 
