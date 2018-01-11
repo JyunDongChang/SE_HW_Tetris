@@ -207,6 +207,11 @@ view_1::view_1()
 	nextPieceLabel->setAlignment(Qt::AlignCenter);
     board->setNextPieceLabel(nextPieceLabel);
 
+    storagePieceLabel = new QLabel;//new
+    storagePieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);//new
+    storagePieceLabel->setAlignment(Qt::AlignCenter);//new
+    board->setStoragePieceLabel(storagePieceLabel);//new
+
 	scoreLcd = new QLCDNumber(5);
 	scoreLcd->setSegmentStyle(QLCDNumber::Filled);
 	levelLcd = new QLCDNumber(2);
@@ -229,14 +234,16 @@ view_1::view_1()
 	QGridLayout *layout = new QGridLayout;
     layout->addWidget(createLabel(tr("NEXT")), 0, 0);
     layout->addWidget(nextPieceLabel, 1, 0);
-	layout->addWidget(startButton, 4, 0);
-    layout->addWidget(board, 0, 1, 6, 1);
+    layout->addWidget(startButton, 6, 0);
+    layout->addWidget(board, 0, 1, 8, 1);
     layout->addWidget(createLabel(tr("SCORE")), 2, 0);
     layout->addWidget(scoreLcd, 3, 0);
+    layout->addWidget(createLabel(tr("Storage")), 4, 0);//new
+    layout->addWidget(storagePieceLabel, 5, 0);//new
     //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
     //layout->addWidget(linesLcd, 3, 2);
-    layout->addWidget(quitButton, 5, 0);
-    layout->addWidget(pauseButton, 6, 0);
+    layout->addWidget(quitButton, 7, 0);
+    layout->addWidget(pauseButton, 8, 0);
 	setLayout(layout);
 
 	setWindowTitle(tr("Tetrix"));
