@@ -43,7 +43,6 @@ void view::paintEvent(QPaintEvent *event)
 //    }
 
     block curPiece=mymodel->getTetris();
-
     int ** tetrisBoard= mymodel->gettetris();
     int boardTop = rect.bottom() - tetrisColumn*squareHeight();
 
@@ -125,9 +124,8 @@ void view::drawSquare(QPainter &painter, int x, int y,int shapeIndex)
         0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
         0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
     };
-
     QColor color = colorTable[shapeIndex];
-    //QColor color =0xCC6666;
+
     painter.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2,
                      color);
 
