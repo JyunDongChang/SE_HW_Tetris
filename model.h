@@ -46,12 +46,14 @@ public:
 	void setgame();
 	void tetris_move(int direction);
 	void tetris_rotate(int direction);
+    void tetris_shape();
 	void tetris_storage();
 	void tetris_fall();
 
 	int getscore() { return score; }
 	int** gettetris() { return tetris; }
 	block getnextTetris() { return nextblock; }
+    block getshapeTetris() {return shapeblock; }
 	block getstorageTetris() { return storageblock; }
 	block getTetris() { return myblock; }
     int gettest(){return test;}
@@ -82,6 +84,7 @@ private:
     bool inTurnChangeTime = false;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個
+    block shapeblock;
 	block storageblock;
     block originalshape[7][4];
     QTimer *timer;

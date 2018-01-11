@@ -28,6 +28,7 @@ void model::setgame()
 	myblock = createnewpeace();
 	//paintintetris();
 	nextblock = createnewpeace();
+    tetris_shape();
 	//設定完後就讓view把遊戲畫面畫出來
     myview->Tetrisrepaint(this);
 	//啟動timer
@@ -56,7 +57,7 @@ void model::tetris_move(int direction)
 		//根據指令去更動next的pos
 		//注意tetris中原本就有東西的地方
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
-
+        tetris_shape();
 		//做完後
         myview->Tetrisrepaint(this);
 	}
@@ -93,7 +94,7 @@ void model::tetris_rotate(int direction)
 		//根據指令去更動next的pos
 		//注意tetris中原本就有東西的地方
 		//若已經無法再下墜則把nextblock給myblock  //須再討論
-
+        tetris_shape();
 		//做完後
         myview->Tetrisrepaint(this);
 	}
@@ -105,11 +106,40 @@ void model::tetris_storage()
 		block temp = copyablock(originalshape[myblock.type][0]);
 		myblock = copyablock(storageblock);
 		storageblock = copyablock(temp);
-
+        tetris_shape();
 		checkfloar();
 		//做完後
         myview->Tetrisrepaint(this);
 	}
+}
+
+void model::tetris_shape()
+{
+    block temp;
+    shapeblock = copyablock(myblock);
+    while (true)
+    {
+        temp = copyablock(shapeblock);
+        temp.pos[1] += 1;
+        if (!checkintetris(temp))
+        {
+           break;
+        }
+        else
+        {
+            shapeblock = copyablock(temp);
+        }
+    }
+    for(int i = 0;i < 4;i++)
+    {
+        for(int j = 0;j < 4;j++)
+        {
+            if(shapeblock.cell[i][j] != 0)
+            {
+                shapeblock.cell[i][j] = 8;
+            }
+        }
+    }
 }
 
 void model::tetris_fall()
@@ -140,6 +170,7 @@ void model::tetris_fall()
 		nextblock = createnewpeace();
         if(!checkfloar())
             inTurnChangeTime = false;
+        tetris_shape();
         myview->Tetrisrepaint(this);
 		timer->start();        
 	}
@@ -172,6 +203,7 @@ void model::mainloop()
 			nextblock = createnewpeace();
             if(!checkfloar())
                 inTurnChangeTime = false;
+            tetris_shape();
             myview->Tetrisrepaint(this);
 
 		}
