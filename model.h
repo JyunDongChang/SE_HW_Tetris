@@ -45,12 +45,15 @@ public:
     model(){;}
     void set(view_controller * v, controller* c) { myview = v; mycontroller = c; }
 	void setgame();
+    void reStart();
+    void pause();
 	void tetris_move(int direction);
 	void tetris_rotate(int direction);
     void tetris_shape();
 	void tetris_storage();
     void tetris_fall();
     void tetris_Quickfall();
+    bool getIsStart() {return isStart;}
 	int getscore() { return score; }
 	int** gettetris() { return tetris; }
 	block getnextTetris() { return nextblock; }
@@ -79,10 +82,11 @@ private:
 	//每一個橫排有10個
 	//總共有20個橫排高
 	int** tetris;
-	float level;
+    int level;
+    int deleteLineCount;
 	int fallSpeed;
-    int score=100;
-    bool inTurnChangeTime = false;
+    int score=0;
+    bool inTurnChangeTime = false,isStart = false,isPause = false;
     bool isStorage = false,isEmptyStorage = false;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個

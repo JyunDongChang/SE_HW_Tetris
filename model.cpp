@@ -6,11 +6,12 @@
 void model::setgame()
 {
 	//初始化參數
+
     QTime t;
     t= QTime::currentTime();
     qsrand(t.msec()+t.second()*1000);
 
-    level = score = 0;
+    level = score = deleteLineCount = 0;
     fallSpeed = 1500;
     //inTurnChangeTime = false;
 
@@ -36,6 +37,26 @@ void model::setgame()
     this->timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(mainloop()));
 	timer->start(fallSpeed);
+    isStart = true;
+}
+
+void model::reStart()
+{
+    if(isPause){
+    timer->start(fallSpeed);
+    inTurnChangeTime = false;
+    isPause = false;
+    myview->Tetrisrepaint(this);
+    }
+}
+
+void model::pause()
+{
+    printf("in\n");
+    isPause = true;
+    timer->stop();
+    inTurnChangeTime = true;
+    myview->Tetrisrepaint(this);
 }
 
 void model::tetris_move(int direction)
@@ -180,6 +201,7 @@ void model::tetris_Quickfall()
         }
         else
         {
+            timer->stop();
             paintintetris();
             checkline();
             myblock = copyablock(nextblock);
@@ -228,7 +250,7 @@ void model::tetris_fall()
             inTurnChangeTime = false;
         tetris_shape();
         myview->Tetrisrepaint(this);
-		timer->start();        
+        //timer->start();
 	}
     else
     {
@@ -278,6 +300,7 @@ void model::mainloop()
 void model::checkline()
 {
 	bool checkReg;
+    int thisTimeDL = 0;
 	bool isFull[tetrisColumn] = { false };
 	for (int i = 0; i < tetrisColumn; i++) {
 		checkReg = true;
@@ -291,16 +314,34 @@ void model::checkline()
 		if (checkReg)
 		{
 			isFull[i] = true;
-			score += level;
-			level++;
+            thisTimeDL++;
+            deleteLineCount++;
+            //score += level;
+            //level++;
 
 		}
 	}
-     printf("%f\n",&level);
-	if (level / 5 > 0)
-	{
-        fallSpeed -= (level/5)*10;
-	}
+    if(level<10)
+    {
+        level = deleteLineCount/10;
+    }
+    switch (thisTimeDL) {
+    case 0:
+        break;
+    case 1: score += 4*(level+1);
+        break;
+    case 2: score += 10*(level+1);
+        break;
+    case 3:  score += 30*(level+1);
+        break;
+    case 4:  score += 120*(level+1);
+        break;
+    default:
+        break;
+    }
+     //printf("%f\n",&level);
+
+    fallSpeed = 1500-(level*100);
 
     int k = tetrisColumn-1;
     for (int i = tetrisColumn-1; i >= 0; i--) {
@@ -318,7 +359,7 @@ void model::checkline()
 	//score++;
 	//更改speed用
 	//timer->changeInterval(msec);
-
+    timer->start(fallSpeed);
 	//檢查完就重新畫
     myview->Tetrisrepaint(this);
 }
@@ -331,6 +372,8 @@ bool model::checkfloar()
 	{
 		timer->stop();
 		inTurnChangeTime = true;
+        isStart = false;
+        isPause = false;
 		//關掉timer
 		//endgame
 		//該stop要stop

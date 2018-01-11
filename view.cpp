@@ -188,6 +188,21 @@ void view::drawSquare(QPainter &painter, int x, int y,int shapeIndex)
     painter.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                      x + squareWidth() - 1, y + 1);
 }
+void view::start()
+{
+    if(mymodel->getIsStart())
+    {
+        mymodel->reStart();
+    }
+    else
+    {
+        mymodel->setgame();
+    }
+}
+void view::pause()
+{
+    mymodel->pause();
+}
 void view::gameover()
 {
 	//在正中間畫個"Game Over"的text
@@ -198,6 +213,7 @@ void view::Tetrisrepaint(model* newModel)
     mymodel = newModel;
     repaint();
 }
+
 view_1::view_1()
 {
     board = new view;
@@ -226,9 +242,9 @@ view_1::view_1()
 	pauseButton = new QPushButton(tr("&Pause"));
 	pauseButton->setFocusPolicy(Qt::NoFocus);
 
-    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
-    //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    //connect(quitButton, SIGNAL(clicked()), app, SLOT(quit()));
+    connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
     connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
 	QGridLayout *layout = new QGridLayout;
@@ -288,9 +304,9 @@ view_2::view_2()
     pauseButton = new QPushButton(tr("&Pause"));
     pauseButton->setFocusPolicy(Qt::NoFocus);
 
-    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
     //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
     connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
     QGridLayout *layout = new QGridLayout;
@@ -348,9 +364,9 @@ view_3::view_3()
     pauseButton = new QPushButton(tr("&Pause"));
     pauseButton->setFocusPolicy(Qt::NoFocus);
 
-    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
     //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
     connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
     QGridLayout *layout = new QGridLayout;
@@ -410,9 +426,9 @@ view_4::view_4()
     pauseButton = new QPushButton(tr("&Pause"));
     pauseButton->setFocusPolicy(Qt::NoFocus);
 
-    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
     //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
     connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
     QGridLayout *layout = new QGridLayout;
@@ -472,9 +488,9 @@ view_5::view_5()
     pauseButton = new QPushButton(tr("&Pause"));
     pauseButton->setFocusPolicy(Qt::NoFocus);
 
-    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
     //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
     connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
 
     QGridLayout *layout = new QGridLayout;

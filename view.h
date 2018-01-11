@@ -26,6 +26,9 @@ public:
         void drawSquare(QPainter &painter, int x, int y,int shapeIndex);
         int squareWidth() { return contentsRect().width() / 10; }
         int squareHeight() { return contentsRect().height() / 20; }
+public slots:
+        void start();
+        void pause();
 
 signals:
     void scoreChanged(int score);
@@ -53,6 +56,7 @@ private:
         QLabel *createLabel(const QString &text);
         view *board;
         QLabel *nextPieceLabel;
+        QLabel *storagePieceLabel;
         QLCDNumber *scoreLcd;
         QLCDNumber *levelLcd;
         QLCDNumber *linesLcd;
