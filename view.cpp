@@ -291,12 +291,12 @@ view_2::view_2()
     layout->addWidget(nextPieceLabel, 1, 1);
     layout->addWidget(createLabel(tr("SCORE")), 2, 1);
     layout->addWidget(scoreLcd, 3, 1);
-    layout->addWidget(createLabel(tr("Storage")), 7, 1);//new
-    layout->addWidget(storagePieceLabel, 8, 1);//new
-    layout->addWidget(startButton, 4, 1);
-    layout->addWidget(quitButton, 5, 1);
-    layout->addWidget(pauseButton, 6, 1);
-    layout->addWidget(board, 0, 0, 6, 1);
+    layout->addWidget(createLabel(tr("Storage")), 4, 1);//new
+    layout->addWidget(storagePieceLabel, 5, 1);//new
+    layout->addWidget(startButton, 6, 1);
+    layout->addWidget(quitButton, 7, 1);
+    layout->addWidget(pauseButton, 8, 1);
+    layout->addWidget(board, 2, 0, 6, 1);
     setLayout(layout);
 
     setWindowTitle(tr("Tetrix"));
@@ -320,7 +320,12 @@ view_3::view_3()
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
-    //board->setNextPieceLabel(nextPieceLabel);
+    board->setNextPieceLabel(nextPieceLabel);
+
+    storagePieceLabel = new QLabel;//new
+    storagePieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);//new
+    storagePieceLabel->setAlignment(Qt::AlignCenter);//new
+    board->setStoragePieceLabel(storagePieceLabel);//new
 
     scoreLcd = new QLCDNumber(5);
     scoreLcd->setSegmentStyle(QLCDNumber::Filled);
@@ -348,6 +353,8 @@ view_3::view_3()
     layout->addWidget(board, 2, 1, 8, 1);
     layout->addWidget(createLabel(tr("SCORE")), 0, 1);
     layout->addWidget(scoreLcd, 1, 1);
+    layout->addWidget(createLabel(tr("Storage")), 2, 0);//new
+    layout->addWidget(storagePieceLabel, 3, 0);//new
     //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
     //layout->addWidget(linesLcd, 3, 2);
     layout->addWidget(quitButton, 8, 0);
@@ -375,7 +382,12 @@ view_4::view_4()
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
-    //board->setNextPieceLabel(nextPieceLabel);
+    board->setNextPieceLabel(nextPieceLabel);
+
+    storagePieceLabel = new QLabel;//new
+    storagePieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);//new
+    storagePieceLabel->setAlignment(Qt::AlignCenter);//new
+    board->setStoragePieceLabel(storagePieceLabel);//new
 
     scoreLcd = new QLCDNumber(5);
     scoreLcd->setSegmentStyle(QLCDNumber::Filled);
@@ -403,6 +415,8 @@ view_4::view_4()
     layout->addWidget(board, 2, 1, 8, 1);
     layout->addWidget(createLabel(tr("SCORE")), 0, 0);
     layout->addWidget(scoreLcd, 1, 0);
+    layout->addWidget(createLabel(tr("Storage")), 2, 0);//new
+    layout->addWidget(storagePieceLabel, 3, 0);//new
     //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
     //layout->addWidget(linesLcd, 3, 2);
     layout->addWidget(quitButton, 8, 0);
@@ -430,7 +444,12 @@ view_5::view_5()
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
-    //board->setNextPieceLabel(nextPieceLabel);
+    board->setNextPieceLabel(nextPieceLabel);
+
+    storagePieceLabel = new QLabel;//new
+    storagePieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);//new
+    storagePieceLabel->setAlignment(Qt::AlignCenter);//new
+    board->setStoragePieceLabel(storagePieceLabel);//new
 
     scoreLcd = new QLCDNumber(5);
     scoreLcd->setSegmentStyle(QLCDNumber::Filled);
@@ -454,14 +473,16 @@ view_5::view_5()
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(createLabel(tr("NEXT")), 0, 0);
     layout->addWidget(nextPieceLabel, 1, 0);
-    layout->addWidget(startButton, 1, 2);
+    layout->addWidget(startButton, 2, 2);
     layout->addWidget(board, 0, 1, 6, 1);
     layout->addWidget(createLabel(tr("SCORE")), 3, 0);
     layout->addWidget(scoreLcd, 4, 0);
+    layout->addWidget(createLabel(tr("Storage")), 0, 2);//new
+    layout->addWidget(storagePieceLabel, 1, 2);//new
     //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
     //layout->addWidget(linesLcd, 3, 2);
-    layout->addWidget(quitButton, 2, 2);
-    layout->addWidget(pauseButton, 3, 2);
+    layout->addWidget(quitButton, 3, 2);
+    layout->addWidget(pauseButton, 4, 2);
     setLayout(layout);
 
     setWindowTitle(tr("Tetrix"));
