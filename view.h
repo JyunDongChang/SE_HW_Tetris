@@ -41,6 +41,7 @@ class view_1 : public view
 public:
         view_1();
         void showNextPiece();
+        void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
         view *board;
@@ -51,4 +52,5 @@ private:
         QPushButton *startButton;
         QPushButton *quitButton;
         QPushButton *pauseButton;
+        void paintEvent(QPaintEvent *event) override{;}
 };

@@ -6,6 +6,7 @@ controller::controller()
     myview = new view_1;
 	mymodel->set(myview, this);
 	myview->set(mymodel, this);
+    myview->setmodel();
 }
 
 controller::~controller()
