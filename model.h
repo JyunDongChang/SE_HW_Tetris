@@ -42,16 +42,18 @@ class model : public QObject
     Q_OBJECT
 public:
     model(){;}
-    void set(view* v, controller* c) { myview = v; mycontroller = c; }
+    void set(view * v, controller* c) { myview = v; mycontroller = c; }
 	void setgame();
 	void tetris_move(int direction);
 	void tetris_rotate(int direction);
+    void tetris_shape();
 	void tetris_storage();
     void tetris_fall();
-
+    void tetris_Quickfall();
 	int getscore() { return score; }
 	int** gettetris() { return tetris; }
 	block getnextTetris() { return nextblock; }
+    block getshapeTetris() {return shapeblock; }
 	block getstorageTetris() { return storageblock; }
 	block getTetris() { return myblock; }
     int gettest(){return test;}
@@ -80,8 +82,10 @@ private:
 	int fallSpeed;
     int score=100;
     bool inTurnChangeTime = false;
+    bool isStorage = false,isEmptyStorage = false;
 	block myblock;//現在拿著的block
 	block nextblock;//下一個
+    block shapeblock;
 	block storageblock;
     block originalshape[7][4];
     QTimer *timer;

@@ -1,7 +1,7 @@
 ﻿#include "view.h"
 #include <QtWidgets>
 void view_1::showNextPiece()
-{
+{/*
   if (!nextPieceLabel)
             return;
   block next = mymodel->getnextTetris();
@@ -17,7 +17,7 @@ void view_1::showNextPiece()
 
                 }
         }
-    nextPieceLabel->setPixmap(pixmap);
+    nextPieceLabel->setPixmap(pixmap);*/
 }
 void view::paintEvent(QPaintEvent *event)
 {
@@ -43,6 +43,7 @@ void view::paintEvent(QPaintEvent *event)
 //    }
 
     block curPiece=mymodel->getTetris();
+    block shapePiece=mymodel->getshapeTetris();
     int ** tetrisBoard= mymodel->gettetris();
     int boardTop = rect.bottom() - tetrisColumn*squareHeight();
 
@@ -58,13 +59,23 @@ void view::paintEvent(QPaintEvent *event)
     }
 
 // 這裡是在畫目前的方塊
+
+    for (int i = 0; i < 4; ++i) {
+       for(int j=0;j<4;++j){
+            if(shapePiece.cell[i][j])
+                drawSquare(painter, rect.left() + (shapePiece.pos[0]+i) * squareWidth(),
+                       boardTop + (shapePiece.pos[1]+j) * squareHeight(),shapePiece.cell[i][j]);
+            }
+    }
     for (int i = 0; i < 4; ++i) {
        for(int j=0;j<4;++j){
             if(curPiece.cell[i][j])
                 drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
-                       boardTop + (curPiece.pos[1]+j - 1) * squareHeight(),curPiece.cell[i][j]);
+                       boardTop + (curPiece.pos[1]+j) * squareHeight(),curPiece.cell[i][j]);
             }
     }
+
+
 
 }
 void view::keyPressEvent(QKeyEvent *event)
@@ -79,14 +90,16 @@ void view::keyPressEvent(QKeyEvent *event)
         mymodel->tetris_move(right_move);
 		break;
 	case Qt::Key_Down:
-		mymodel->tetris_fall();
+        mymodel->tetris_Quickfall();
 		break;
 	case Qt::Key_Up:
         mymodel->tetris_rotate(right_rotate);
 		break;
 	case Qt::Key_Space:
+        mymodel->tetris_fall();
 		break;
 	case Qt::Key_D:
+        mymodel->tetris_storage();
         //oneLineDown();
 		break;
 	default:
@@ -120,9 +133,9 @@ void view::keyPressEvent(QKeyEvent *event)
 }
 void view::drawSquare(QPainter &painter, int x, int y,int shapeIndex)
 {
-    static const QRgb colorTable[8] = {
+    static const QRgb colorTable[9] = {
         0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
-        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
+        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00, 0x5B5B5B
     };
     QColor color = colorTable[shapeIndex];
 
@@ -156,7 +169,7 @@ view_1::view_1()
 	nextPieceLabel = new QLabel;
 	nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
 	nextPieceLabel->setAlignment(Qt::AlignCenter);
-//	board->setNextPieceLabel(nextPieceLabel);
+    //board->setNextPieceLabel(nextPieceLabel);
 
 	scoreLcd = new QLCDNumber(5);
 	scoreLcd->setSegmentStyle(QLCDNumber::Filled);

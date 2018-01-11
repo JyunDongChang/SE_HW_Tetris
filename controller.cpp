@@ -4,8 +4,6 @@ controller::controller()
 {
 	mymodel = new model;
     myview = new view_1;
-    //myview = new view;
-    //这边要是view_1
 	mymodel->set(myview, this);
 	myview->set(mymodel, this);
 }
