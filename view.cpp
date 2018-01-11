@@ -7,9 +7,7 @@ void view::showNextPiece()
       printf("exit");
             return;
   }
-  printf("painting");
   block next = mymodel->getnextTetris();
-         printf("%d",next.pos[0]);
         QPixmap pixmap(4 * squareWidth(), 4 * squareHeight());
         QPainter painter(&pixmap);
         painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
@@ -24,9 +22,38 @@ void view::showNextPiece()
         }
     nextPieceLabel->setPixmap(pixmap);
 }
+void view::showStorageBlock()
+{
+    if (!storagePieceLabel)
+    {
+        printf("exit");
+              return;
+    }
+    printf("painting");
+    block storage = mymodel->getstorageTetris();
+
+          QPixmap pixmap(4 * squareWidth(), 4 * squareHeight());
+          QPainter painter(&pixmap);
+          painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
+
+          for (int i = 0; i < 4; ++i) {
+             for(int j=0;j<4;++j){
+                 printf("%d",storage.cell[i][j]);
+                  if(storage.cell[i][j])
+                      drawSquare(painter,(i) * squareWidth(),(j) * squareHeight()
+                                 ,storage.cell[i][j]);
+
+                  }
+          }
+      storagePieceLabel->setPixmap(pixmap);
+}
 void view::setNextPieceLabel(QLabel *label)
 {
     nextPieceLabel = label;
+}
+void view::setStoragePieceLabel(QLabel *label)
+{
+    storagePieceLabel=label;
 }
 void view::paintEvent(QPaintEvent *event)
 {
@@ -235,6 +262,11 @@ view_2::view_2()
     nextPieceLabel->setAlignment(Qt::AlignCenter);
     board->setNextPieceLabel(nextPieceLabel);
 
+    storagePieceLabel = new QLabel;//new
+    storagePieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);//new
+    storagePieceLabel->setAlignment(Qt::AlignCenter);//new
+    board->setStoragePieceLabel(storagePieceLabel);//new
+
     scoreLcd = new QLCDNumber(5);
     scoreLcd->setSegmentStyle(QLCDNumber::Filled);
     levelLcd = new QLCDNumber(2);
@@ -259,8 +291,8 @@ view_2::view_2()
     layout->addWidget(nextPieceLabel, 1, 1);
     layout->addWidget(createLabel(tr("SCORE")), 2, 1);
     layout->addWidget(scoreLcd, 3, 1);
-    //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
-    //layout->addWidget(linesLcd, 3, 2);
+    layout->addWidget(createLabel(tr("Storage")), 7, 1);//new
+    layout->addWidget(storagePieceLabel, 8, 1);//new
     layout->addWidget(startButton, 4, 1);
     layout->addWidget(quitButton, 5, 1);
     layout->addWidget(pauseButton, 6, 1);

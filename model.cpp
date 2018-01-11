@@ -114,12 +114,14 @@ void model::tetris_storage()
                 myblock = copyablock(nextblock);
                 nextblock = createnewpeace();
                 myview->showNext();
+                myview->showStorage();
             }
             else
             {
                 block temp = copyablock(originalshape[myblock.type-1][0]);
                 myblock = copyablock(storageblock);
                 storageblock = copyablock(temp);
+                myview->showStorage();
             }
             tetris_shape();
             if(!checkfloar())

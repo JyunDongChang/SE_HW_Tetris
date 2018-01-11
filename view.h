@@ -19,8 +19,10 @@ public:
         void Tetrisrepaint(model* newModel);
         void set(model* m, controller* c) { mycontroller = c;mymodel = m; }
         void setNextPieceLabel(QLabel *label);
+        void setStoragePieceLabel(QLabel *label);
         void gameover();
         void showNextPiece();
+        void showStorageBlock();
         void drawSquare(QPainter &painter, int x, int y,int shapeIndex);
         int squareWidth() { return contentsRect().width() / 10; }
         int squareHeight() { return contentsRect().height() / 20; }
@@ -32,6 +34,7 @@ private:
         void keyPressEvent(QKeyEvent *event) override;
         void paintEvent(QPaintEvent *event) override;
         QPointer<QLabel> nextPieceLabel;
+        QPointer<QLabel> storagePieceLabel;
 protected:
         model* mymodel;
         controller* mycontroller;
@@ -44,6 +47,7 @@ class view_1 : public view
 public:
         view_1();
         void showNext(){board->showNextPiece();}
+        void showStorage(){board->showStorageBlock();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
@@ -65,11 +69,13 @@ class view_2 : public view
 public:
         view_2();
         void showNext(){board->showNextPiece();}
+        void showStorage(){board->showStorageBlock();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
         view *board;
         QLabel *nextPieceLabel;
+        QLabel *storagePieceLabel;
         QLCDNumber *scoreLcd;
         QLCDNumber *levelLcd;
         QLCDNumber *linesLcd;
@@ -86,11 +92,13 @@ class view_3 : public view
 public:
         view_3();
         void showNext(){board->showNextPiece();}
+        void showStorage(){board->showStorageBlock();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
         view *board;
         QLabel *nextPieceLabel;
+        QLabel *storagePieceLabel;
         QLCDNumber *scoreLcd;
         QLCDNumber *levelLcd;
         QLCDNumber *linesLcd;
@@ -107,11 +115,13 @@ class view_4 : public view
 public:
         view_4();
         void showNext(){board->showNextPiece();}
+        void showStorage(){board->showStorageBlock();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
         view *board;
         QLabel *nextPieceLabel;
+        QLabel *storagePieceLabel;
         QLCDNumber *scoreLcd;
         QLCDNumber *levelLcd;
         QLCDNumber *linesLcd;
@@ -128,11 +138,13 @@ class view_5 : public view
 public:
         view_5();
         void showNext(){board->showNextPiece();}
+        void showStorage(){board->showStorageBlock();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
         view *board;
         QLabel *nextPieceLabel;
+        QLabel *storagePieceLabel;
         QLCDNumber *scoreLcd;
         QLCDNumber *levelLcd;
         QLCDNumber *linesLcd;
