@@ -43,6 +43,7 @@ class view_1 : public view
 
 public:
         view_1();
+        void showNext(){board->showNextPiece();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
@@ -84,7 +85,7 @@ class view_3 : public view
 
 public:
         view_3();
-        void showNextPiece();
+        void showNext(){board->showNextPiece();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
@@ -105,7 +106,7 @@ class view_4 : public view
 
 public:
         view_4();
-        void showNextPiece();
+        void showNext(){board->showNextPiece();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
@@ -126,7 +127,7 @@ class view_5 : public view
 
 public:
         view_5();
-        void showNextPiece();
+        void showNext(){board->showNextPiece();}
         void setmodel(){board->set(mymodel,mycontroller);}
 private:
         QLabel *createLabel(const QString &text);
