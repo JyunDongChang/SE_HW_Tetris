@@ -60,13 +60,6 @@ void view::paintEvent(QPaintEvent *event)
     }
 
 // 這裡是在畫目前的方塊
-    for (int i = 0; i < 4; ++i) {
-       for(int j=0;j<4;++j){
-            if(curPiece.cell[i][j])
-                drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
-                       boardTop + (curPiece.pos[1]+j) * squareHeight(),curPiece.cell[i][j]);
-            }
-    }
 
     for (int i = 0; i < 4; ++i) {
        for(int j=0;j<4;++j){
@@ -75,6 +68,15 @@ void view::paintEvent(QPaintEvent *event)
                        boardTop + (shapePiece.pos[1]+j) * squareHeight(),shapePiece.cell[i][j]);
             }
     }
+    for (int i = 0; i < 4; ++i) {
+       for(int j=0;j<4;++j){
+            if(curPiece.cell[i][j])
+                drawSquare(painter, rect.left() + (curPiece.pos[0]+i) * squareWidth(),
+                       boardTop + (curPiece.pos[1]+j) * squareHeight(),curPiece.cell[i][j]);
+            }
+    }
+
+
 
 }
 void view::keyPressEvent(QKeyEvent *event)
@@ -89,12 +91,13 @@ void view::keyPressEvent(QKeyEvent *event)
         mymodel->tetris_move(right_move);
 		break;
 	case Qt::Key_Down:
-		mymodel->tetris_fall();
+        mymodel->tetris_Quickfall();
 		break;
 	case Qt::Key_Up:
         mymodel->tetris_rotate(right_rotate);
 		break;
 	case Qt::Key_Space:
+        mymodel->tetris_fall();
 		break;
 	case Qt::Key_D:
         //oneLineDown();

@@ -142,6 +142,38 @@ void model::tetris_shape()
     }
 }
 
+void model::tetris_Quickfall()
+{
+    block temp;
+
+    if (!inTurnChangeTime) {
+
+        inTurnChangeTime = true;
+        //timer->stop();
+
+        temp = copyablock(myblock);
+        temp.pos[1] += 1;
+        if (checkintetris(temp))
+        {
+            myblock = copyablock(temp);
+        }
+        else
+        {
+            paintintetris();
+            checkline();
+            myblock = copyablock(nextblock);
+            nextblock = createnewpeace();
+
+        }
+        if(!checkfloar())
+            inTurnChangeTime = false;
+        tetris_shape();
+        myview->Tetrisrepaint(this);
+    }
+
+    //同move
+}
+
 void model::tetris_fall()
 {
 	block temp;

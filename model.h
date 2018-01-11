@@ -49,6 +49,7 @@ public:
     void tetris_shape();
 	void tetris_storage();
 	void tetris_fall();
+    void tetris_Quickfall();
 
 	int getscore() { return score; }
 	int** gettetris() { return tetris; }
