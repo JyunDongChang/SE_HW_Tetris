@@ -216,3 +216,223 @@ QLabel *view_1::createLabel(const QString &text)
 	lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	return lbl;
 }
+
+view_2::view_2()
+{
+    board = new view;
+
+    nextPieceLabel = new QLabel;
+    nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
+    nextPieceLabel->setAlignment(Qt::AlignCenter);
+    //board->setNextPieceLabel(nextPieceLabel);
+
+    scoreLcd = new QLCDNumber(5);
+    scoreLcd->setSegmentStyle(QLCDNumber::Filled);
+    levelLcd = new QLCDNumber(2);
+    levelLcd->setSegmentStyle(QLCDNumber::Filled);
+    linesLcd = new QLCDNumber(5);
+    linesLcd->setSegmentStyle(QLCDNumber::Filled);
+
+    startButton = new QPushButton(tr("&Start"));
+    startButton->setFocusPolicy(Qt::NoFocus);
+    quitButton = new QPushButton(tr("&Quit"));
+    quitButton->setFocusPolicy(Qt::NoFocus);
+    pauseButton = new QPushButton(tr("&Pause"));
+    pauseButton->setFocusPolicy(Qt::NoFocus);
+
+    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(createLabel(tr("NEXT")), 0, 1);
+    layout->addWidget(nextPieceLabel, 1, 1);
+    layout->addWidget(createLabel(tr("SCORE")), 2, 1);
+    layout->addWidget(scoreLcd, 3, 1);
+    //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
+    //layout->addWidget(linesLcd, 3, 2);
+    layout->addWidget(startButton, 4, 1);
+    layout->addWidget(quitButton, 5, 1);
+    layout->addWidget(pauseButton, 6, 1);
+    layout->addWidget(board, 0, 0, 6, 1);
+    setLayout(layout);
+
+    setWindowTitle(tr("Tetrix"));
+    resize(550, 370);
+    //依據Model的資料畫出來遊戲畫面
+    //可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
+    //然後這邊就傳入不同的參數就可以變更了
+    //當然我還沒看qt，不清楚這現實不現實
+}
+QLabel *view_2::createLabel(const QString &text)
+{
+    QLabel *lbl = new QLabel(text);
+    lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    return lbl;
+}
+
+view_3::view_3()
+{
+    board = new view;
+
+    nextPieceLabel = new QLabel;
+    nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
+    nextPieceLabel->setAlignment(Qt::AlignCenter);
+    //board->setNextPieceLabel(nextPieceLabel);
+
+    scoreLcd = new QLCDNumber(5);
+    scoreLcd->setSegmentStyle(QLCDNumber::Filled);
+    levelLcd = new QLCDNumber(2);
+    levelLcd->setSegmentStyle(QLCDNumber::Filled);
+    linesLcd = new QLCDNumber(5);
+    linesLcd->setSegmentStyle(QLCDNumber::Filled);
+
+    startButton = new QPushButton(tr("&Start"));
+    startButton->setFocusPolicy(Qt::NoFocus);
+    quitButton = new QPushButton(tr("&Quit"));
+    quitButton->setFocusPolicy(Qt::NoFocus);
+    pauseButton = new QPushButton(tr("&Pause"));
+    pauseButton->setFocusPolicy(Qt::NoFocus);
+
+    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+    layout->addWidget(nextPieceLabel, 1, 0);
+    layout->addWidget(startButton, 7, 0);
+    layout->addWidget(board, 2, 1, 8, 1);
+    layout->addWidget(createLabel(tr("SCORE")), 0, 1);
+    layout->addWidget(scoreLcd, 1, 1);
+    //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
+    //layout->addWidget(linesLcd, 3, 2);
+    layout->addWidget(quitButton, 8, 0);
+    layout->addWidget(pauseButton, 9, 0);
+    setLayout(layout);
+
+    setWindowTitle(tr("Tetrix"));
+    resize(550, 370);
+    //依據Model的資料畫出來遊戲畫面
+    //可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
+    //然後這邊就傳入不同的參數就可以變更了
+    //當然我還沒看qt，不清楚這現實不現實
+}
+QLabel *view_3::createLabel(const QString &text)
+{
+    QLabel *lbl = new QLabel(text);
+    lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    return lbl;
+}
+
+view_4::view_4()
+{
+    board = new view;
+
+    nextPieceLabel = new QLabel;
+    nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
+    nextPieceLabel->setAlignment(Qt::AlignCenter);
+    //board->setNextPieceLabel(nextPieceLabel);
+
+    scoreLcd = new QLCDNumber(5);
+    scoreLcd->setSegmentStyle(QLCDNumber::Filled);
+    levelLcd = new QLCDNumber(2);
+    levelLcd->setSegmentStyle(QLCDNumber::Filled);
+    linesLcd = new QLCDNumber(5);
+    linesLcd->setSegmentStyle(QLCDNumber::Filled);
+
+    startButton = new QPushButton(tr("&Start"));
+    startButton->setFocusPolicy(Qt::NoFocus);
+    quitButton = new QPushButton(tr("&Quit"));
+    quitButton->setFocusPolicy(Qt::NoFocus);
+    pauseButton = new QPushButton(tr("&Pause"));
+    pauseButton->setFocusPolicy(Qt::NoFocus);
+
+    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(createLabel(tr("NEXT")), 0, 1);
+    layout->addWidget(nextPieceLabel, 1, 1);
+    layout->addWidget(startButton, 7, 0);
+    layout->addWidget(board, 2, 1, 8, 1);
+    layout->addWidget(createLabel(tr("SCORE")), 0, 0);
+    layout->addWidget(scoreLcd, 1, 0);
+    //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
+    //layout->addWidget(linesLcd, 3, 2);
+    layout->addWidget(quitButton, 8, 0);
+    layout->addWidget(pauseButton, 9, 0);
+    setLayout(layout);
+
+    setWindowTitle(tr("Tetrix"));
+    resize(550, 370);
+    //依據Model的資料畫出來遊戲畫面
+    //可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
+    //然後這邊就傳入不同的參數就可以變更了
+    //當然我還沒看qt，不清楚這現實不現實
+}
+QLabel *view_4::createLabel(const QString &text)
+{
+    QLabel *lbl = new QLabel(text);
+    lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    return lbl;
+}
+
+view_5::view_5()
+{
+    board = new view;
+
+    nextPieceLabel = new QLabel;
+    nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
+    nextPieceLabel->setAlignment(Qt::AlignCenter);
+    //board->setNextPieceLabel(nextPieceLabel);
+
+    scoreLcd = new QLCDNumber(5);
+    scoreLcd->setSegmentStyle(QLCDNumber::Filled);
+    levelLcd = new QLCDNumber(2);
+    levelLcd->setSegmentStyle(QLCDNumber::Filled);
+    linesLcd = new QLCDNumber(5);
+    linesLcd->setSegmentStyle(QLCDNumber::Filled);
+
+    startButton = new QPushButton(tr("&Start"));
+    startButton->setFocusPolicy(Qt::NoFocus);
+    quitButton = new QPushButton(tr("&Quit"));
+    quitButton->setFocusPolicy(Qt::NoFocus);
+    pauseButton = new QPushButton(tr("&Pause"));
+    pauseButton->setFocusPolicy(Qt::NoFocus);
+
+    //connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
+    //connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+    //connect(pauseButton, SIGNAL(clicked()), board, SLOT(pause()));
+    connect(board, SIGNAL(scoreChanged(int)), scoreLcd, SLOT(display(int)));
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+    layout->addWidget(nextPieceLabel, 1, 0);
+    layout->addWidget(startButton, 1, 2);
+    layout->addWidget(board, 0, 1, 6, 1);
+    layout->addWidget(createLabel(tr("SCORE")), 3, 0);
+    layout->addWidget(scoreLcd, 4, 0);
+    //layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
+    //layout->addWidget(linesLcd, 3, 2);
+    layout->addWidget(quitButton, 2, 2);
+    layout->addWidget(pauseButton, 3, 2);
+    setLayout(layout);
+
+    setWindowTitle(tr("Tetrix"));
+    resize(550, 370);
+    //依據Model的資料畫出來遊戲畫面
+    //可以考慮在view先寫好PaintScore(座標) PaintNextBlock(座標)之類的
+    //然後這邊就傳入不同的參數就可以變更了
+    //當然我還沒看qt，不清楚這現實不現實
+}
+QLabel *view_5::createLabel(const QString &text)
+{
+    QLabel *lbl = new QLabel(text);
+    lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    return lbl;
+}

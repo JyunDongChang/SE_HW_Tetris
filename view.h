@@ -54,3 +54,87 @@ private:
         QPushButton *pauseButton;
         void paintEvent(QPaintEvent *event) override{;}
 };
+
+class view_2 : public view
+{
+        Q_OBJECT
+
+public:
+        view_2();
+        void showNextPiece();
+        void setmodel(){board->set(mymodel,mycontroller);}
+private:
+        QLabel *createLabel(const QString &text);
+        view *board;
+        QLabel *nextPieceLabel;
+        QLCDNumber *scoreLcd;
+        QLCDNumber *levelLcd;
+        QLCDNumber *linesLcd;
+        QPushButton *startButton;
+        QPushButton *quitButton;
+        QPushButton *pauseButton;
+        void paintEvent(QPaintEvent *event) override{;}
+};
+
+class view_3 : public view
+{
+        Q_OBJECT
+
+public:
+        view_3();
+        void showNextPiece();
+        void setmodel(){board->set(mymodel,mycontroller);}
+private:
+        QLabel *createLabel(const QString &text);
+        view *board;
+        QLabel *nextPieceLabel;
+        QLCDNumber *scoreLcd;
+        QLCDNumber *levelLcd;
+        QLCDNumber *linesLcd;
+        QPushButton *startButton;
+        QPushButton *quitButton;
+        QPushButton *pauseButton;
+        void paintEvent(QPaintEvent *event) override{;}
+};
+
+class view_4 : public view
+{
+        Q_OBJECT
+
+public:
+        view_4();
+        void showNextPiece();
+        void setmodel(){board->set(mymodel,mycontroller);}
+private:
+        QLabel *createLabel(const QString &text);
+        view *board;
+        QLabel *nextPieceLabel;
+        QLCDNumber *scoreLcd;
+        QLCDNumber *levelLcd;
+        QLCDNumber *linesLcd;
+        QPushButton *startButton;
+        QPushButton *quitButton;
+        QPushButton *pauseButton;
+        void paintEvent(QPaintEvent *event) override{;}
+};
+
+class view_5 : public view
+{
+        Q_OBJECT
+
+public:
+        view_5();
+        void showNextPiece();
+        void setmodel(){board->set(mymodel,mycontroller);}
+private:
+        QLabel *createLabel(const QString &text);
+        view *board;
+        QLabel *nextPieceLabel;
+        QLCDNumber *scoreLcd;
+        QLCDNumber *levelLcd;
+        QLCDNumber *linesLcd;
+        QPushButton *startButton;
+        QPushButton *quitButton;
+        QPushButton *pauseButton;
+        void paintEvent(QPaintEvent *event) override{;}
+};
