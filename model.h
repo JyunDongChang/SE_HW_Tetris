@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QTimer>
 class controller;
-class view_1;
+class view_2;
+typedef view_2 view_controller;
 
 #define tetrisRow 10
 #define tetrisColumn 20
@@ -42,7 +43,7 @@ class model : public QObject
     Q_OBJECT
 public:
     model(){;}
-    void set(view_1 * v, controller* c) { myview = v; mycontroller = c; }
+    void set(view_controller * v, controller* c) { myview = v; mycontroller = c; }
 	void setgame();
 	void tetris_move(int direction);
 	void tetris_rotate(int direction);
@@ -61,7 +62,7 @@ public slots:
     void mainloop();
 
 private:
-    view_1* myview;
+    view_controller* myview;
 	controller* mycontroller;
 	//
 

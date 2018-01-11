@@ -3,7 +3,7 @@
 controller::controller()
 {
 	mymodel = new model;
-    myview = new view_1;
+    myview = new view_controller;
 	mymodel->set(myview, this);
 	myview->set(mymodel, this);
     myview->setmodel();

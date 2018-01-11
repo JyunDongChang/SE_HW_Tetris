@@ -3,7 +3,9 @@
 #include "view.h"
 
 class model;
-class view_1;
+class view_2;
+typedef view_2 view_controller;
+
 class controller
 {
 public:
@@ -12,5 +14,5 @@ public:
 	int startgame();
 private:
 	model* mymodel;
-    view_1* myview;
+    view_controller* myview;
 };
